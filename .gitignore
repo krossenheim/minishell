@@ -1,0 +1,8 @@
+!Makefile
+!.gitignore
+.vscode/
+*.o
+trash/*.out
+mini_shell
+temp_heredoc
+*copy.c
