@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/19 10:19:51 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/09/27 11:39:35 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/02 14:07:38 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ bool	heredoc(char *marker, t_mini *mini)
 	int		child_pid;
 	
 	status = 0;
-	printf("runnig hereodc %d", getpid());
 	signal(SIGQUIT, SIG_DFL);
 	signal(SIGINT, killdoc);
 	pipe(fd);
@@ -117,7 +116,6 @@ bool	heredoc(char *marker, t_mini *mini)
 	{
 		child_process(marker, fd[1], mini);
 		close(fd[1]);
-		printf("Child leaves\n");
 		exit(1);
 	}
 	while (killsig == 0 && WEXITSTATUS(status) != 1)
@@ -126,6 +124,5 @@ bool	heredoc(char *marker, t_mini *mini)
 	signal(SIGINT, handle_ctrl_c);
 	signal(SIGQUIT, SIG_IGN);
 	close(fd[0]);
-	printf("leabingss hereodc %d", getpid());
 	return (!killsig);
 }
