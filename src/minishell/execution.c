@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 12:42:53 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/02 12:40:54 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/02 14:11:57 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,8 +206,8 @@ static	int	ft_is_not_builtin(t_hell  *head, t_mini *mini, int fd[2], int *prev_f
 		free_split(envp);
 		exit(1);
 	}	
-	waitpid(pid, &mini->last_exit_code, 0);
-	mini->last_exit_code = WIFEXITED(mini->last_exit_code);
+	waitpid(pid, &mini->last_exit_code, WNOHANG);
+	mini->last_exit_code = WEXITSTATUS(mini->last_exit_code);
 	return (pid);
 }
 
@@ -232,11 +232,10 @@ static	int	ft_is_builtin_new(t_hell  *head, t_mini *mini, int fd[2], int *prev_f
 		if (head->next != NULL)
 			ft_bite_size_write(fd);
 		ft_redirecs(head);
-		exec_builtin(head, mini);
-		exit(1);
+		exit(exec_builtin(head, mini));
 	}	
-	waitpid(pid, &mini->last_exit_code, 0);
-	mini->last_exit_code = WIFEXITED(mini->last_exit_code);
+	waitpid(pid, &mini->last_exit_code, WNOHANG);
+	mini->last_exit_code = WEXITSTATUS(mini->last_exit_code);
 	return (pid);
 }
 
@@ -278,17 +277,19 @@ int execution(t_mini *mini)
     int     fd[2];        
     int     prev_fd;
     pid_t   pid;
-
+//	int STATUS;
+	
 	prev_fd = -1;
 	pid = 0;
 	ft_set_in_out(mini);
     head = mini->to_exec;  
     while (head != NULL)
     {
-        if (!head->path && !is_builtin(head))
+        if (!head->path)
 		{
 			printf("Command '%s' not found.\n", head->args[0]);
 			mini->last_exit_code = 127;
+			break ;
 		}
 		else if (!mini->to_exec->next && is_builtin(head) == 1)
 			mini->last_exit_code = exec_builtin(head, mini);
@@ -300,6 +301,9 @@ int execution(t_mini *mini)
         head = head->next;
     }
 	ft_close_in_out(mini);
+	// while (!WIFEXITED(STATUS) || waitpid(-1, &STATUS, WNOHANG) == 0)
+	// 	continue;
+		
 	return (mini->last_exit_code);
 }
 
