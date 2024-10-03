@@ -6,13 +6,13 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/07 12:31:41 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/09/26 22:45:25 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/03 14:06:59 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	program_exit(t_mini mini)
+int	program_exit(t_mini mini)
 {
 	clear_last_command(&mini);
 	ft_clean_exit(&mini);
@@ -48,7 +48,7 @@ bool	export_formatted(char *export_input)
 	return (0);
 }
 
-static void	_program_export_noargs(t_mini *mini)
+static int	_program_export_noargs(t_mini *mini)
 {
 	t_list *tmp;
 
@@ -60,9 +60,10 @@ static void	_program_export_noargs(t_mini *mini)
 		printf("%s\n", (char *) tmp->content);
 		tmp = tmp->next;
 	}
+	return (0);
 }
 
-void	program_export(char **args, t_mini *mini) 
+int	program_export(char **args, t_mini *mini) 
 {
 	t_list *new;
 	char	*tmp;
@@ -74,7 +75,7 @@ void	program_export(char **args, t_mini *mini)
 	if (tmp == NULL || ft_strlen(tmp) == 0)
 		return (_program_export_noargs(mini));
 	if (!(export_formatted(tmp)))
-		return ;
+		return (1);
 	while (*tmp && *tmp != '=')
 		tmp++;
 	envp = mini->envp;
@@ -86,7 +87,7 @@ void	program_export(char **args, t_mini *mini)
 			free(envp->content);
 			envp->content = ft_strdup(args[1]);
 			free(var_name);
-			return ;
+			return (0);
 		}
 		envp = envp->next;
 	}		
@@ -97,4 +98,5 @@ void	program_export(char **args, t_mini *mini)
 	else
 		new = ft_lstnew(first_word(args[1]));
 	ft_lstadd_back(&mini->envp, new);
+	return (0);
 }

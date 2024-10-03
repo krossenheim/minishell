@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 12:42:53 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/02 12:16:23 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/03 14:04:45 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,18 @@ int	exec_builtin(t_hell *head, t_mini *mini)
 {
 	//printf("Checking/Running -> \nProgram name: '%s'\nProgram args: '%s'\n", head->args[0], head->args);
 	if (ft_strncmp(head->args[0], "env", 3) == 0 && ft_strlen(head->args[0]) == 3)
-		program_env(mini);
+		return (program_env(mini));
 	else if (ft_strncmp(head->args[0], "unset", 5) == 0 && ft_strlen(head->args[0]) == 5)
-		program_unset(head, mini);
+		return (program_unset(head, mini));
 	else if (ft_strncmp(head->args[0], "pwd", 3) == 0 && ft_strlen(head->args[0]) == 3)
-		program_pwd();
+		return (program_pwd());
 	else if (ft_strncmp(head->args[0], "echo", 4) == 0 && ft_strlen(head->args[0]) == 4)
-		program_echo(head);
+		return (program_echo(head));
 	else if (ft_strncmp(head->args[0], "exit", 4) == 0 && ft_strlen(head->args[0]) == 4)
-		program_exit(*mini);
+		return (program_exit(*mini));
 	else if (ft_strncmp(head->args[0], "export", 6) == 0 && ft_strlen(head->args[0]) == 6)
-		program_export(head->args, mini);
+		return (program_export(head->args, mini));
 	else if (ft_strncmp(head->args[0], "cd", 2) == 0 && ft_strlen(head->args[0]) == 2)
-		program_cd(mini);
-	return (42);
+		return (program_cd(mini));
+	return (1);
 }

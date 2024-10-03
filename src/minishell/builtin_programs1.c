@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/07 12:31:41 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/09/26 14:48:14 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/03 13:54:14 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 
 //write(mini->to_exec->outfile, (char *) tmp->content, ft_strlen((char *) tmp->content))
-void	program_env(t_mini *mini)
+int	program_env(t_mini *mini)
 {
 	t_list *tmp;
 
@@ -25,9 +25,10 @@ void	program_env(t_mini *mini)
 		printf("%s\n", (char *) tmp->content);
 		tmp = tmp->next;
 	}
+	return (0);
 }
 
-void	program_pwd()
+int	program_pwd()
 {
 	char buffer[1000];
 	char *buf;
@@ -36,24 +37,25 @@ void	program_pwd()
 	if (buf == NULL)
 	{
 		free(buf);
-		return ;
+		return (1);
 	}
 	printf("%s\n", buffer);
+	return (0);
 }
 
 //mkdir
 //my cd function doesn't work with valgrind
 
-void program_unset(t_hell *exec_info, t_mini *mini)
+int	program_unset(t_hell *exec_info, t_mini *mini)
 {
 	t_list	*head;
 	t_list	*var_node;
 	
 	if (exec_info->argc < 2)
-		return ;
+		return (0);
 	var_node = get_env_node(exec_info->args[1], *mini);
 	if (var_node == NULL)
-		return ;
+		return (1);
 	head = mini->envp;
 
 	if (head == var_node) // remove head 
@@ -76,6 +78,7 @@ void program_unset(t_hell *exec_info, t_mini *mini)
 		free(var_node->content); //!!
 		free(var_node);
 	}
+	return (0);
 }
 
  
@@ -100,7 +103,7 @@ static bool has_newline(t_hell *to_exec, int *i)
 	return (false);
 }
 
-void	program_echo(t_hell *to_exec)
+int	program_echo(t_hell *to_exec)
 {
 	int		i;
 	bool	newline;
@@ -127,6 +130,7 @@ void	program_echo(t_hell *to_exec)
 	}
 	if (newline)
 		write(1, "\n", 1);
+	return (0);
 }
 
 // void	program_echo_no_option(t_mini *mini)

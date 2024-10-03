@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/03 11:55:22 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/02 12:16:59 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/03 14:06:33 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,17 +120,17 @@ char		*first_word(char *may_have_quotes);
 char		*not_first_word(char *may_have_quotes);
 
 //Programs1
-void		program_env(t_mini *mini);
-void		program_pwd();
-void 		program_unset(t_hell *exe, t_mini *mini);
+int			program_env(t_mini *mini);
+int			program_pwd();
+int	 		program_unset(t_hell *exe, t_mini *mini);
 void		no_program(char *exe_name);
-void		program_echo(t_hell *to_exec);
-void		program_cd(t_mini *mini);
+int			program_echo(t_hell *to_exec);
+int			program_cd(t_mini *mini);
 
 //Programs2
-void		program_exit(t_mini mini);
+int			program_exit(t_mini mini);
 bool		export_formatted(char *export_input);
-void		program_export(char **args, t_mini *mini);
+int			program_export(char **args, t_mini *mini);
 
 //Env vars
 t_list		*envp_to_linked_list(char **envp);

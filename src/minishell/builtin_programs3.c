@@ -6,7 +6,7 @@
 /*   By: diwang <diwang@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/26 10:32:14 by diwang        #+#    #+#                 */
-/*   Updated: 2024/09/27 14:43:40 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/03 14:12:06 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ static char	*helper_program_pwd()
 	return (buf);
 }
 
-static void	ft_everything_cd(char **args, t_mini *mini)
+static int	ft_everything_cd(char **args, t_mini *mini)
 {
 	char *buf;
 	if (access(args[1], F_OK) == 0)
@@ -138,20 +138,23 @@ static void	ft_everything_cd(char **args, t_mini *mini)
 		update_pwd(args, mini, buf);
 	}
 	else
+	{
 		perror("no such path");
+		return (1);
+	}
+	return (0);
 }
 
-void	program_cd(t_mini *mini)
+int	program_cd(t_mini *mini)
 {
 	char	**args;
-	char	*confirm_path1;
 
-	confirm_path1 = NULL;	
-	if (0 && confirm_path1)
-		return ;
 	args = mini->to_exec->args;
 	if (mini->to_exec->argc > 2)
+	{
 		perror("too many arguments");
+		return (1);
+	}
 	if (ft_strncmp(args[0], "cd", 2) == 0 && ft_strlen(args[0]) == 2)
 	{
 		if ((mini->to_exec->argc == 1)
@@ -159,7 +162,16 @@ void	program_cd(t_mini *mini)
 			ft_for_home_cd(args, mini);
 		else if ((ft_strncmp(args[1], "~", 2) == 0) && ft_strlen(args[1]) == 1)
 			ft_for_home_cd(args, mini);
-		else if (args[1])											
-			ft_everything_cd(args, mini);
+		else if (args[1])	
+		{							
+			if (ft_everything_cd(args, mini) == 1)
+				return (1);
+		}
+		else
+		{
+			perror("file not found");
+			return (1);
+		}
 	}
+	return (0);
 }

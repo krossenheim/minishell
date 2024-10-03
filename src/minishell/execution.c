@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 12:42:53 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/03 13:15:16 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/03 14:34:53 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,8 +201,8 @@ static	int	ft_is_not_builtin(t_hell  *head, t_mini *mini, int fd[2], int *prev_f
 			ft_bite_size_write(fd);
 		ft_redirecs(head);
 		envp = envp_get(mini);
-		execve(head->path, head->args, envp);
-		perror("child execve");
+		if (execve(head->path, head->args, envp) == 1)
+			perror("child execve");
 		free_split(envp);
 		exit(1);
 	}	
@@ -235,6 +235,7 @@ static	int	ft_is_builtin_new(t_hell  *head, t_mini *mini, int fd[2], int *prev_f
 		exit(exec_builtin(head, mini));
 	}	
 	waitpid(pid, &mini->last_exit_code, WNOHANG);
+	printf("TESTING SFSFDSF \n");
 	mini->last_exit_code = WEXITSTATUS(mini->last_exit_code);
 	return (pid);
 }
@@ -303,9 +304,8 @@ int execution(t_mini *mini)
     }
 	ft_close_in_out(mini);
 	if (prev_fd != -1)
-		while (!WIFEXITED(STATUS) || waitpid(-1, &STATUS, WNOHANG) == 0)
+		while (!WIFSTOPPED(STATUS) || waitpid(-1, &STATUS, WNOHANG) == 0)
 			waitpid(-1, &STATUS, WNOHANG);
-		
 	return (mini->last_exit_code);
 }
 
