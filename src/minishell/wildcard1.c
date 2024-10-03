@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/19 14:51:08 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/09/20 13:16:40 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/03 23:01:09 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,28 +25,31 @@ static t_match_info	*fill_fields(char *name, bool isdir)
 	return (new);
 }
 
-static bool	is_match(char *filename, char *to_match)
+static bool	is_match(char *f, char *m)
 {
-	if (*filename == '.')
+	if (*f == '.')
 		return (false);
-	while (*to_match != '\0' && *filename != '\0')
+	while (*m != '\0' && *f != '\0')
 	{
-		if (*to_match == '*')
+		if (*m == '*')
 		{
-			while (*to_match == '*')
-				to_match++;
-			while (*filename && *filename != *to_match)
-				filename++;
+			while (*m == '*')
+				m++;
+			while (*f && (*f != *m
+					|| (*(m + 1) == '\0' && ft_strchr(f, *m) != NULL)))
+				f++;
+			if (*f == '\0' && *(f - 1) == *m)
+				return (true);
 		}
-		else if (*filename == *to_match)
+		else if (*f == *m)
 		{
-			to_match++;
-			filename++;
+			m++;
+			f++;
 		}
 		else
 			break ;
 	}
-	if (*to_match != '\0' || *filename != '\0')
+	if (*m != '\0' || *f != '\0')
 		return (false);
 	return (true);
 }

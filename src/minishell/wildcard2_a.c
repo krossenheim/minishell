@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/19 14:51:08 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/03 22:15:23 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/03 22:59:57 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ bool	wildcard2_insert(t_tkn_dlist *to_replace,
 	int	i;
 
 	i = 1;
-	//to_insert->prev = to_replace;
 	while (to_insert != NULL)
 	{
 		if (i == lstsize)

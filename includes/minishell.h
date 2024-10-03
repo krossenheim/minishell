@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/03 11:55:22 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/03 22:17:18 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/03 22:23:09 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ typedef struct s_mini
 } t_mini;
 
 //Wildcard
-void		autocomplete(t_mini *mini, t_tkn_dlist *head);
+void		autocomplete(t_mini *mini);
 
 //Wildcard1
 t_list		*fetch_dir_contents(DIR	*folder, char *to_match);

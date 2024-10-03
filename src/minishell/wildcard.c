@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/19 14:51:08 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/09/24 23:59:40 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/03 23:00:25 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,38 +70,37 @@ static char	**_autocomplete(DIR	*folder, char *to_match)
 
 static void	autoc_tokens(DIR *folder, t_tkn_dlist *head)
 {
-	t_tkn_dlist	*tmp;
 	char		**replaced;
 
-	if (!head)
-		return ;
-	tmp = head;
-	while (tmp)
+	while (head)
 	{
-		if (tmp->quoted || ft_strchr(tmp->contents, '*') == NULL)
+		if (head->quoted || ft_strchr(head->contents, '*') == NULL)
 		{
-			tmp = tmp->next;
+			head = head->next;
 			continue ;
 		}
-		replaced = _autocomplete(folder, tmp->contents);
+		replaced = _autocomplete(folder, head->contents);
 		if (replaced)
 		{
-			if (!replace_and_insert(tmp, replaced))
+			if (!replace_and_insert(head, replaced))
 			{
 				write (1, "Error9\n", 7);
+				free_split(replaced);
 				return ;
 			}
 		}
+		else
+			printf("Nothing to replace\n");
 		free_split(replaced);
-		tmp = tmp->next;
+		head = head->next;
 	}
 }
 
-void	autocomplete(t_mini *mini, t_tkn_dlist *head)
+void	autocomplete(t_mini *mini)
 {
 	char	*path;
 	DIR		*folder;
-	
+
 	path = get_env_var("PWD", *mini);
 	if (!path)
 		return ;
@@ -109,6 +108,6 @@ void	autocomplete(t_mini *mini, t_tkn_dlist *head)
 	folder = opendir(path);
 	if (folder == NULL)
 		return ;
-	autoc_tokens(folder, head);
+	autoc_tokens(folder, mini->input_tknized);
 	closedir(folder);
 }

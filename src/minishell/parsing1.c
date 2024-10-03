@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 12:42:53 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/09/28 14:16:21 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/03 22:25:45 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ int	parse_input_bla(t_mini *mini)
 	if (!check_tokens_syntax(mini->input_tknized))
 		return (-1);
 	if (has_wildcards(mini->input_tknized))
-		autocomplete(mini, mini->input_tknized);
+		autocomplete(mini);
 	if (fill_structs(mini) != 1)
 		return (-2);
 	execution(mini);
