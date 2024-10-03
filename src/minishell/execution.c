@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 12:42:53 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/03 16:47:03 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/03 16:56:47 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,20 +275,35 @@ static void ft_parent(t_hell *head, int fd[2], int *prev_fd)
 	}
 }
 
-static	int	ft_exit_status()
-{
-	int status;
-	int last;
-    int exit_pid = waitpid(-1, &status, 0);
+// static	int	ft_exit_status()
+// {
+// 	int status;
+// 	int last;
+//     int exit_pid = waitpid(-1, &status, 0);
 	
-	while (exit_pid != -1)
-	{
-		if (exit_pid == 0)
-			last = status;
-    	exit_pid = waitpid(-1, &status, 0);
-	}
-	return (last);
-}
+// 	while (exit_pid != -1)
+// 	{
+// 		if (exit_pid == 0)
+// 			last = status;
+//     	exit_pid = waitpid(-1, &status, 0);
+// 	}
+// 	return (last);
+// }
+
+// static	int	ft_exit_status()
+// {
+// 	int status;
+// 	int last;
+//     int exit_pid = waitpid(-1, &status, 0);
+	
+// 	while (exit_pid != -1)
+// 	{
+// 		if (exit_pid == 0)
+// 			last = status;
+//     	exit_pid = waitpid(-1, &status, 0);
+// 	}
+// 	return (last);
+// }
 
 int execution(t_mini *mini)
 {
@@ -325,9 +340,8 @@ int execution(t_mini *mini)
 		waitpid(mini->last_pid, &mini->last_exit_code, 0);
 		mini->last_exit_code = WEXITSTATUS(mini->last_exit_code);
 	}
-	ft_exit_status();
+	waitpid(-1, NULL, 0);
 	return (1);
 }
-
 
 
