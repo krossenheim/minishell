@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 12:42:53 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/03 14:34:53 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/03 15:42:31 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,8 +206,9 @@ static	int	ft_is_not_builtin(t_hell  *head, t_mini *mini, int fd[2], int *prev_f
 		free_split(envp);
 		exit(1);
 	}	
-	waitpid(pid, &mini->last_exit_code, WNOHANG);
+	waitpid(pid, &mini->last_exit_code, 0);
 	mini->last_exit_code = WEXITSTATUS(mini->last_exit_code);
+	exit(mini->last_exit_code);
 	return (pid);
 }
 
@@ -234,9 +235,9 @@ static	int	ft_is_builtin_new(t_hell  *head, t_mini *mini, int fd[2], int *prev_f
 		ft_redirecs(head);
 		exit(exec_builtin(head, mini));
 	}	
-	waitpid(pid, &mini->last_exit_code, WNOHANG);
-	printf("TESTING SFSFDSF \n");
+	waitpid(pid, &mini->last_exit_code, 0);
 	mini->last_exit_code = WEXITSTATUS(mini->last_exit_code);
+	exit(mini->last_exit_code);
 	return (pid);
 }
 
@@ -272,15 +273,28 @@ static void ft_parent(t_hell *head, int fd[2], int *prev_fd)
 	}
 }
 
+static	int	ft_exit_status(pid_t pid)
+{
+	int status;
+	int last;
+    int exit_pid = waitpid(-1, &status, 0);
+	
+	while (exit_pid != -1)
+	{
+		if (exit_pid == pid)
+			last = status;
+    	exit_pid = waitpid(-1, &status, 0);
+	}
+	return (last);
+}
+
 int execution(t_mini *mini)
 {
     t_hell  *head;
     int     fd[2];        
     int     prev_fd;
     pid_t   pid;
-	int STATUS;
-	
-	STATUS = -1;
+
 	prev_fd = -1;
 	pid = 0;
 	ft_set_in_out(mini);
@@ -303,10 +317,10 @@ int execution(t_mini *mini)
         head = head->next;
     }
 	ft_close_in_out(mini);
-	if (prev_fd != -1)
-		while (!WIFSTOPPED(STATUS) || waitpid(-1, &STATUS, WNOHANG) == 0)
-			waitpid(-1, &STATUS, WNOHANG);
-	return (mini->last_exit_code);
+	// int exit_code;
+	ft_exit_status(pid);
+	return (1);
+	//return(ft_exit_status(pid));
 }
 
 
