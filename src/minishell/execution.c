@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 12:42:53 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/03 17:09:09 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/03 21:16:06 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -306,7 +306,8 @@ int execution(t_mini *mini)
 		waitpid(mini->last_pid, &mini->last_exit_code, 0);
 		mini->last_exit_code = WEXITSTATUS(mini->last_exit_code);
 	}
-	waitpid(-1, NULL, 0);
+	while (waitpid(-1, NULL, 0) == 0)
+		continue ;
 	return (1);
 }
 
