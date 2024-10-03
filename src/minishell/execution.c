@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 12:42:53 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/03 16:56:47 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/03 17:04:17 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,8 +207,6 @@ static	int	ft_is_not_builtin(t_hell  *head, t_mini *mini, int fd[2], int *prev_f
 		exit(1);
 	}
 	mini->last_pid = pid;
-	waitpid(pid, &mini->last_exit_code, WNOHANG);
-	mini->last_exit_code = WEXITSTATUS(mini->last_exit_code);
 	return (pid);
 }
 
@@ -238,8 +236,6 @@ static	int	ft_is_builtin_new(t_hell  *head, t_mini *mini, int fd[2], int *prev_f
 		exit(exec_builtin(head, mini));
 	}	
 	mini->last_pid = pid;
-	waitpid(pid, &mini->last_exit_code, WNOHANG);
-	mini->last_exit_code = WEXITSTATUS(mini->last_exit_code);
 	return (pid);
 }
 
