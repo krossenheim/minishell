@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/05 19:51:27 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/09/20 12:37:35 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/03 23:09:11 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void	clear_tokens(t_mini *mini)
 {
-	t_tkn_dlist *tmp;
-	t_tkn_dlist *list;
+	t_tkn_dlist	*tmp;
+	t_tkn_dlist	*list;
 
 	if (!mini && !mini->input_tknized)
 		return ;
@@ -48,8 +48,8 @@ void	free_split(char **split)
 
 static void	clear_exec_struct(t_mini *mini)
 {
-	t_hell *tmp;
-	t_hell *list;
+	t_hell	*tmp;
+	t_hell	*list;
 
 	if (!mini || !mini->to_exec)
 		return ;
@@ -65,8 +65,7 @@ static void	clear_exec_struct(t_mini *mini)
 	mini->to_exec = NULL;
 }
 
-
-void clear_last_command(t_mini *mini)
+void	clear_last_command(t_mini *mini)
 {
 	clear_exec_struct(mini);
 	clear_tokens(mini);

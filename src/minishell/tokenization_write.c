@@ -6,17 +6,17 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/06 15:38:55 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/09/25 00:28:38 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/03 23:07:56 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int _keep_questionmark(int *i, char *dest, t_mini mini)
+static int	_keep_questionmark(int *i, char *dest, t_mini mini)
 {
-	char *strval;
-	int	ammount_written;
-	
+	char	*strval;
+	int		ammount_written;
+
 	if (!dest || !i)
 		return (0);
 	strval = ft_itoa(mini.last_exit_code);

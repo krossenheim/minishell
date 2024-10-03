@@ -6,15 +6,15 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 12:42:53 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/03 14:04:45 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/03 23:05:07 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+
 int	is_builtin(t_hell *cur)
 {
-	//printf("Checking/Running -> \nProgram name: '%s'\nProgram args: '%s'\n", exe_name, exe_args);
 	if (ft_strncmp(cur->args[0], "env", 3) == 0 && ft_strlen(cur->args[0]) == 3)
 		return (1);
 	if (ft_strncmp(cur->args[0], "unset", 5) == 0 && ft_strlen(cur->args[0]) == 5)
@@ -34,7 +34,6 @@ int	is_builtin(t_hell *cur)
 
 int	exec_builtin(t_hell *head, t_mini *mini)
 {
-	//printf("Checking/Running -> \nProgram name: '%s'\nProgram args: '%s'\n", head->args[0], head->args);
 	if (ft_strncmp(head->args[0], "env", 3) == 0 && ft_strlen(head->args[0]) == 3)
 		return (program_env(mini));
 	else if (ft_strncmp(head->args[0], "unset", 5) == 0 && ft_strlen(head->args[0]) == 5)

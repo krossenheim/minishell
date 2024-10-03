@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 12:42:53 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/09/25 00:43:24 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/03 23:27:13 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*first_word_has_no_quotes(char *has_no_quotes)
 {
-	char *tmp;
-	
+	char	*tmp;
+
 	if (ft_strchr(has_no_quotes, ' ') == NULL)
 		return (ft_strdup(has_no_quotes));
 	tmp = has_no_quotes;
@@ -24,35 +24,45 @@ char	*first_word_has_no_quotes(char *has_no_quotes)
 	return (ft_substr(tmp, 0, ft_strchr(tmp, ' ') - tmp));
 }
 
-char	*first_word_is_quoted(char *may_have_quotes)
+static void	_first_word_is_quoted(char *mb_hasq,
+	int *idx_end,
+	int *idx_begin,
+	int *offset)
 {
 	int	i;
+
+	i = 0;
+	while (mb_hasq[i] != '\0' && *idx_end == -1)
+	{
+		if (is_quote(mb_hasq[i]))
+		{
+			if (*idx_begin == -1)
+				*idx_begin = i;
+			else if (*idx_end == -1 && mb_hasq[i] == mb_hasq[*idx_begin])
+				*idx_end = i;
+		}
+		if (i > 0 && !ft_isspace(mb_hasq[i])
+			&& !is_quote(mb_hasq[i]) && *idx_begin == -1)
+			break ;
+		else if (*idx_begin == -1)
+			(*offset)++;
+		i++;
+	}
+}
+
+char	*first_word_is_quoted(char *mb_hasq)
+{
 	int	idx_begin;
-	int idx_end;
+	int	idx_end;
 	int	offset;
 
 	idx_begin = -1;
 	idx_end = -1;
-	i = 0;
 	offset = 0;
-	while (may_have_quotes[i] != '\0' && idx_end == -1)
-	{
-		if (is_quote(may_have_quotes[i]))
-		{
-			if (idx_begin == -1)
-				idx_begin = i;
-			else if (idx_end == -1 && may_have_quotes[i] == may_have_quotes[idx_begin])
-				idx_end = i;
-		}
-		if (i > 0 && !ft_isspace(may_have_quotes[i]) && !is_quote(may_have_quotes[i]) && idx_begin == -1)
-			break;
-		else if (idx_begin == -1)
-			offset++;
-		i++;
-	}
+	_first_word_is_quoted(mb_hasq, &idx_end, &idx_begin, &offset);
 	if (idx_end == -1)
 		return (NULL);
-	return (ft_substr(may_have_quotes, idx_begin + 1, idx_end - 1 -offset));
+	return (ft_substr(mb_hasq, idx_begin + 1, idx_end - 1 - offset));
 }
 
 char	*first_word(char *may_have_quotes)
@@ -73,16 +83,15 @@ char	*first_word(char *may_have_quotes)
 	if (rv != NULL)
 		return (rv);
 	write(1, "No memory to allocate our args and exe names!", 46);
-	exit(-1);
 	return (NULL);
 }
- 
+
 char	*ft_trim_right(char *totrim)
 {
 	int	i;
 
 	i = 0;
-	while (totrim[i] !='\0')
+	while (totrim[i] != '\0')
 		i++;
 	if (i > 0)
 		i--;
@@ -94,14 +103,13 @@ char	*ft_trim_right(char *totrim)
 	return (totrim);
 }
 
-char	*not_first_word(char *may_have_quotes)
+char	*not_first_word(char *mb_hasq)
 {
-	char 	*tmp;
+	char	*tmp;
 	int		quote_met;
 
 	quote_met = -1;
-	tmp = may_have_quotes;
-	
+	tmp = mb_hasq;
 	while (ft_isspace(*tmp))
 		tmp++;
 	while (*tmp != '\0')
@@ -109,8 +117,9 @@ char	*not_first_word(char *may_have_quotes)
 		if (ft_isspace(*tmp) && quote_met == -1)
 			break ;
 		if (is_quote(*tmp) && quote_met == -1)
-			quote_met = tmp - may_have_quotes;
-		else if (is_quote(*tmp) && quote_met != -1 && may_have_quotes[quote_met] == *tmp)
+			quote_met = tmp - mb_hasq;
+		else if (is_quote(*tmp) && quote_met != -1
+			&& mb_hasq[quote_met] == *tmp)
 			break ;
 		tmp++;
 	}
