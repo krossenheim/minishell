@@ -6,7 +6,7 @@
 /*   By: diwang <diwang@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/26 10:32:14 by diwang        #+#    #+#                 */
-/*   Updated: 2024/10/03 14:12:06 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/03 17:22:45 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,16 +162,9 @@ int	program_cd(t_mini *mini)
 			ft_for_home_cd(args, mini);
 		else if ((ft_strncmp(args[1], "~", 2) == 0) && ft_strlen(args[1]) == 1)
 			ft_for_home_cd(args, mini);
-		else if (args[1])	
-		{							
+		else if (args[1])							
 			if (ft_everything_cd(args, mini) == 1)
 				return (1);
-		}
-		else
-		{
-			perror("file not found");
-			return (1);
-		}
 	}
 	return (0);
 }
