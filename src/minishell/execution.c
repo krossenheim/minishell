@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 12:42:53 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/02 14:11:57 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/03 13:15:16 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,8 +277,9 @@ int execution(t_mini *mini)
     int     fd[2];        
     int     prev_fd;
     pid_t   pid;
-//	int STATUS;
+	int STATUS;
 	
+	STATUS = -1;
 	prev_fd = -1;
 	pid = 0;
 	ft_set_in_out(mini);
@@ -301,8 +302,9 @@ int execution(t_mini *mini)
         head = head->next;
     }
 	ft_close_in_out(mini);
-	// while (!WIFEXITED(STATUS) || waitpid(-1, &STATUS, WNOHANG) == 0)
-	// 	continue;
+	if (prev_fd != -1)
+		while (!WIFEXITED(STATUS) || waitpid(-1, &STATUS, WNOHANG) == 0)
+			waitpid(-1, &STATUS, WNOHANG);
 		
 	return (mini->last_exit_code);
 }
