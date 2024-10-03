@@ -5,6 +5,7 @@ SOURCES_FLS	=	main.c \
 				minishell/wildcard.c \
 				minishell/wildcard1.c \
 				minishell/wildcard2.c \
+				minishell/wildcard2_a.c \
 				minishell/ft_clean_exit.c \
 				minishell/heredoc.c \
 				minishell/quotes.c \

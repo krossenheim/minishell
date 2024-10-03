@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/03 11:55:22 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/03 16:22:02 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/03 22:17:18 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,11 @@ t_list		*fetch_dir_contents(DIR	*folder, char *to_match);
 
 // Wildcard2
 bool		replace_and_insert(t_tkn_dlist *tmp, char **replaced);
-
+bool		wildcard2_replace(t_tkn_dlist *to_replace, char **replaced);
+bool		wildcard2_insert(t_tkn_dlist *to_replace,
+				char **replaced,
+				t_tkn_dlist *to_insert,
+				int lstsize);
 //Parse_stdin
 int			parse_input(t_mini mini);
 char		*first_word(char *may_have_quotes);
