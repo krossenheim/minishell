@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/03 11:55:22 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/03 14:06:33 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/03 16:22:02 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ typedef struct s_mini
 	int			last_exit_code;
 	int			saved_stdin;
 	int			saved_stdout;
+	pid_t		last_pid;
 
 } t_mini;
 

@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 12:47:19 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/09/28 14:47:43 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/03 16:34:25 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	init_mini(t_mini *mini, char **envp)
 	mini->envp = envp_to_linked_list(envp);
 	mini->home = get_env_var("PWD=", *mini);
 	mini->to_exec = NULL;
+	mini->last_pid = -1;
 	mini->input_tknized = NULL;
 	mini->saved_stdout = dup(STDOUT_FILENO);
 	mini->saved_stdin = dup(STDIN_FILENO);

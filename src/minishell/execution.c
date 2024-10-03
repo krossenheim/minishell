@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 12:42:53 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/03 15:42:31 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/03 16:47:03 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,12 +205,14 @@ static	int	ft_is_not_builtin(t_hell  *head, t_mini *mini, int fd[2], int *prev_f
 			perror("child execve");
 		free_split(envp);
 		exit(1);
-	}	
-	waitpid(pid, &mini->last_exit_code, 0);
+	}
+	mini->last_pid = pid;
+	waitpid(pid, &mini->last_exit_code, WNOHANG);
 	mini->last_exit_code = WEXITSTATUS(mini->last_exit_code);
-	exit(mini->last_exit_code);
 	return (pid);
 }
+
+//waitpid(pid, &mini->last_exit_code, 0);
 
 static	int	ft_is_builtin_new(t_hell  *head, t_mini *mini, int fd[2], int *prev_fd)
 {
@@ -235,9 +237,9 @@ static	int	ft_is_builtin_new(t_hell  *head, t_mini *mini, int fd[2], int *prev_f
 		ft_redirecs(head);
 		exit(exec_builtin(head, mini));
 	}	
-	waitpid(pid, &mini->last_exit_code, 0);
+	mini->last_pid = pid;
+	waitpid(pid, &mini->last_exit_code, WNOHANG);
 	mini->last_exit_code = WEXITSTATUS(mini->last_exit_code);
-	exit(mini->last_exit_code);
 	return (pid);
 }
 
@@ -253,12 +255,12 @@ static void ft_close_in_out(t_mini *mini)
     close(mini->saved_stdin);
 }
 
-static void	ft_close_redirecs(t_hell  *head, pid_t pid)
+static void	ft_close_redirecs(t_hell  *head)
 {
-	if (head->infile > 0 && pid == 0)
+	if (head->infile > 0)
 		close(head->infile);
 
-	if (head->outfile > 0 && pid == 0)
+	if (head->outfile > 0)
 		close(head->outfile);
 }
 
@@ -273,7 +275,7 @@ static void ft_parent(t_hell *head, int fd[2], int *prev_fd)
 	}
 }
 
-static	int	ft_exit_status(pid_t pid)
+static	int	ft_exit_status()
 {
 	int status;
 	int last;
@@ -281,7 +283,7 @@ static	int	ft_exit_status(pid_t pid)
 	
 	while (exit_pid != -1)
 	{
-		if (exit_pid == pid)
+		if (exit_pid == 0)
 			last = status;
     	exit_pid = waitpid(-1, &status, 0);
 	}
@@ -293,10 +295,8 @@ int execution(t_mini *mini)
     t_hell  *head;
     int     fd[2];        
     int     prev_fd;
-    pid_t   pid;
 
 	prev_fd = -1;
-	pid = 0;
 	ft_set_in_out(mini);
     head = mini->to_exec;  
     while (head != NULL)
@@ -304,23 +304,30 @@ int execution(t_mini *mini)
         if (!head->path)
 		{
 			printf("Command '%s' not found.\n", head->args[0]);
+			mini->last_pid = -1;
 			mini->last_exit_code = 127;
-			break ;
 		}
 		else if (!mini->to_exec->next && is_builtin(head) == 1)
+		{
 			mini->last_exit_code = exec_builtin(head, mini);
+			mini->last_pid = -1;
+		}
 		else if (is_builtin(head) == 1 && ft_is_builtin_new(head, mini, fd, &prev_fd) != 0)
 			ft_parent(head, fd, &prev_fd);
 		else if (ft_is_not_builtin(head, mini, fd, &prev_fd) != 0)
 			ft_parent(head, fd, &prev_fd);
-		ft_close_redirecs(head, pid);
+		ft_close_redirecs(head);
         head = head->next;
     }
 	ft_close_in_out(mini);
-	// int exit_code;
-	ft_exit_status(pid);
+	if (mini->last_pid >= 0)
+	{
+		waitpid(mini->last_pid, &mini->last_exit_code, 0);
+		mini->last_exit_code = WEXITSTATUS(mini->last_exit_code);
+	}
+	ft_exit_status();
 	return (1);
-	//return(ft_exit_status(pid));
 }
+
 
 
