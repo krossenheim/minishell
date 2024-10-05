@@ -6,15 +6,15 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/19 10:19:51 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/02 14:07:38 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/05 02:18:26 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int killsig;
+int	g_killsig;
 
-static void  _keep_questionmark(int *i, int dest, t_mini mini)
+static void	_keep_questionmark(int *i, int dest, t_mini mini)
 {
 	char *strval;
 
@@ -24,7 +24,7 @@ static void  _keep_questionmark(int *i, int dest, t_mini mini)
 	(*i) += 2;
 }
 
-static void _handle_dollar(char *str, int *i, int dest, t_mini mini)
+static void	_handle_dollar(char *str, int *i, int dest, t_mini mini)
 {
 	char	*tmp;
 	char	*tmp1;
@@ -51,7 +51,7 @@ static void _handle_dollar(char *str, int *i, int dest, t_mini mini)
 static void	expanded_vars(char *raw, int fd, t_mini mini)
 {
 	int		i;
-	
+
 	i = 0;
 	while (raw[i] != '\0')
 	{
@@ -63,21 +63,16 @@ static void	expanded_vars(char *raw, int fd, t_mini mini)
 	write(fd, "\n", 1);
 }
 
-void	killdoc()
+static void	killdoc(void)
 {
-	killsig = 1;
+	g_killsig = 1;
 }
 
-void quit()
-{
-	exit(2);
-}
-
-void	child_process(char *marker, int fd, t_mini *mini)
+static void	child_process(char *marker, int fd, t_mini *mini)
 {
 	char *line;
 	
-	while (killsig == 0)
+	while (g_killsig == 0)
 	{
 		line = readline("> ");
 		if (ft_strncmp(marker, line, INT_MAX) == 0)
@@ -108,7 +103,7 @@ bool	heredoc(char *marker, t_mini *mini)
 	}
 	if (fd[0] == 1)
 		return (false);
-	killsig = 0;
+	g_killsig = 0;
 	child_pid = fork();
 	if (child_pid == -1)
 		return (false);
@@ -118,11 +113,11 @@ bool	heredoc(char *marker, t_mini *mini)
 		close(fd[1]);
 		exit(1);
 	}
-	while (killsig == 0 && WEXITSTATUS(status) != 1)
+	while (g_killsig == 0 && WEXITSTATUS(status) != 1)
 		waitpid(child_pid, &status, WNOHANG);
 	kill(child_pid, SIGQUIT);
 	signal(SIGINT, handle_ctrl_c);
 	signal(SIGQUIT, SIG_IGN);
 	close(fd[0]);
-	return (!killsig);
+	return (!g_killsig);
 }
