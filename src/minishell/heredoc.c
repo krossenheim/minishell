@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/19 10:19:51 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/05 02:18:26 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/05 02:21:55 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	expanded_vars(char *raw, int fd, t_mini mini)
 	write(fd, "\n", 1);
 }
 
-static void	killdoc(void)
+static void	killdoc()
 {
 	g_killsig = 1;
 }
@@ -119,5 +119,6 @@ bool	heredoc(char *marker, t_mini *mini)
 	signal(SIGINT, handle_ctrl_c);
 	signal(SIGQUIT, SIG_IGN);
 	close(fd[0]);
+	close(fd[1]);
 	return (!g_killsig);
 }
