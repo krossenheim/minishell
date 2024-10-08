@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/06 15:38:55 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/08 13:19:27 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/08 19:22:45 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,27 +73,26 @@ static void	_calc_deal_with_escaped(char *str, int *i, int *j)
 	(*i) += 2;
 }
 
-int	calculate_expanded_len(char *str, t_mini *mini)
+int	calculate_expanded_len(char *s, t_mini *mini)
 {
 	int		i;
 	int		j;
 
 	i = 0;
 	j = 0;
-	while (str[i] != '\0' && (in_q(str, i) != 0 || !ft_isspace(str[i])))
+	while (s[i] != '\0' && (in_q(s, i) != 0 || !ft_isspace(s[i])))
 	{
-		if (in_q(str, i) == 2)
+		if (in_q(s, i) == 2)
 		{
 			i++;
 			j++;
 		}
-		else if (is_quote(str[i]) && in_q(str, i) == 0)
+		else if (is_quote(s[i]) && in_q(s, i) == 0)
 			i++;
-		else if (in_q(str, i) < 2 && str[i] == '$' && str[i + 1] != '\0'
-			&& str[i + 1] != ' ')
-			_calculate_expanded_len(str, &i, &j, mini);
-		else if (str[i] == '\\')
-			_calc_deal_with_escaped(str, &i, &j);
+		else if (in_q(s, i) < 2 && s[i] == '$' && s[i + 1] && s[i + 1] != ' ')
+			_calculate_expanded_len(s, &i, &j, mini);
+		else if (s[i] == '\\')
+			_calc_deal_with_escaped(s, &i, &j);
 		else
 		{
 			i++;
