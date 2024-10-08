@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/19 10:19:51 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/08 14:57:11 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/08 15:26:49 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	expanded_vars(char *raw, int fd, t_mini mini)
 	i = 0;
 	while (raw[i] != '\0')
 	{
-		if (raw[i] == '$' && raw[i + 1] != '/0' && raw[i + 1] != ' ')
+		if (raw[i] == '$' && raw[i + 1] != '\0' && raw[i + 1] != ' ')
 			handle_dollar(raw, &i, fd, mini);
 		else
 			write(fd, raw + i++, 1);
