@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/03 11:55:22 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/08 12:49:06 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/08 21:45:17 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ int			ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t		ft_strlen(const char *s);
 bool		ft_isspace(char c);
 char		*ft_strjoin(char const *s1, char const *s2);
+int			ft_isalpha(int n);
 
 // Signal_handler
 void		bind_signals(void);
@@ -219,5 +220,12 @@ char		*ft_trim_right(char *totrim);
 char		*not_first_word(char *may_have_quotes);
 bool		is_actual_separator(t_tkn_dlist node);
 int			parse_tokenize_execute(t_mini *mini);
+
+// Builtin programs 3b
+char	*get_pwd(t_mini *mini);
+void	update_old_pwd(char **args, t_mini *mini);
+void	update_pwd(char **args, t_mini *mini, char *path);
+char	*get_cd_path(t_list *envp_list);
+void	ft_for_home_cd(char **args, t_mini *mini);
 
 #endif

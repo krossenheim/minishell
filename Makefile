@@ -15,10 +15,12 @@ SOURCES_FLS	=	main.c \
 				minishell/utils2.c \
 				minishell/signal_handlers.c \
 				minishell/disable_echo_ctrl.c \
+				minishell/builtin_programs.c \
 				minishell/builtin_programs1.c \
 				minishell/builtin_programs2.c \
 				minishell/builtin_programs3.c \
-				minishell/builtin_programs.c \
+				minishell/builtin_programs3b.c \
+				minishell/builtin_programs4.c \
 				minishell/env_vars.c \
 				minishell/teardown.c \
 				minishell/ft_memcpy.c \
