@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 12:47:19 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/03 16:34:25 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/08 12:35:01 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,48 +24,14 @@ void	init_mini(t_mini *mini, char **envp)
 	mini->last_exit_code = 0;
 }
 
-// bool	set_in_and_outfiles(t_mini *mini)
-// {
-// 	t_hell *to_exec;
-// 	t_tkn_dlist *tmp;
-
-// 	to_exec = mini->to_exec;
-// 	while (to_exec)
-// 	{
-// 		tmp = mini->input_tknized;
-// 		while (tmp)
-// 		{
-// 			if (!set_outfile(to_exec, tmp))
-// 				return (false);
-// 			tmp = tmp->next;
-// 		}
-// 		to_exec = to_exec->next;
-// 	}
-// 	to_exec = mini->to_exec;
-// 	while (to_exec)
-// 	{
-// 		tmp = mini->input_tknized;
-// 		while (tmp)
-// 		{
-// 			if (!set_infile(to_exec, tmp))
-// 				return (false);
-// 			tmp = tmp->next;
-// 		}
-// 		to_exec = to_exec->next;
-// 	}
-// 	return (true);
-// }
-
-int	fill_structs(t_mini *mini) // for the whole pipes
+int	fill_structs(t_mini *mini)
 {
-	t_tkn_dlist *tokens;
+	t_tkn_dlist	*tokens;
 	t_hell		*new;
 	t_tkn_dlist	*sepahead;
 
 	tokens = mini->input_tknized;
 	sepahead = NULL;
-	if (!tokens)
-		return (-1);
 	while (tokens)
 	{
 		if (sepahead == NULL || *(sepahead->contents) == '|')
@@ -86,19 +52,18 @@ int	fill_structs(t_mini *mini) // for the whole pipes
 	return (1);
 }
 
-
-char **envp_get(t_mini *mini)
+char	**envp_get(t_mini *mini)
 {
-	t_list *cur;
+	t_list	*cur;
 	int		i;
 	int		size;
 	char	**envp;
-	
+
 	if (!mini)
 		return (NULL);
 	cur = mini->envp;
 	size = ft_lstsize(cur);
-	envp = malloc(sizeof(char *) * (size + 1));  
+	envp = malloc(sizeof(char *) * (size + 1));
 	if (!envp)
 		return (NULL);
 	i = 0;
