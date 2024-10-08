@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 12:35:41 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/08 12:41:40 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/08 13:18:34 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	tokenize_input(t_mini *mini, char *spaced_line)
 	{
 		ft_skip_spaces(spaced_line, &i);
 		next = next_token_init(spaced_line, &i);
-		if (!next && ! prev)
+		if (!next && !prev)
 			return (-1);
 		if (fill_token(spaced_line, &i, next, mini) == false)
 			write(1, "Somethign went wrong filling the token.", 40);
