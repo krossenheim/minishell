@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/03 11:57:48 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/09/27 11:39:42 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/08 12:21:14 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	main_loop(t_mini *mini)
 		|| !quotes_matched(mini->spaced_input) 
 		|| !early_syntax_check(mini->spaced_input) )
 			continue ;
-		parse_input_bla(mini);
+		parse_tokenize_execute(mini);
 		clear_last_command(mini);
 	}
 	return (1);

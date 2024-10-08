@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/03 11:55:22 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/03 22:23:09 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/08 12:32:08 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,12 +157,11 @@ bool		quotes_matched(char *str);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t		ft_strlen(const char *s);
 bool		ft_isspace(char c);
+char		*ft_strchr(const char *s, int c);
 
 //Signals
 void		bind_signals(void);
 void		handle_ctrl_d();
-// void	handle_ctrl_c(int dummy);
-
 void		handle_ctrl_c();
 
 // Tests
@@ -187,9 +186,14 @@ char		**ft_split(char const *s, char c);
 char		*ft_strjoin(char const *s1, char const *s2);
 
 // ft_clean_exit
-void ft_clean_exit(t_mini *mini);
+void		ft_clean_exit(t_mini *mini);
 
-// Heredoc
+// Heredoc 
+void		keep_questionmark(int *i, int dest, t_mini mini);
+void		handle_dollar(char *str, int *i, int dest, t_mini mini);
+void		expanded_vars(char *raw, int fd, t_mini mini);
+
+//Heredoc 2
 bool		heredoc(char *marker, t_mini *mini);
 
 // Initialization
@@ -208,6 +212,7 @@ void		ft_skip_spaces(char *line, int *i);
 
 // Tokenization2
 int			in_q(char *str, int index);
+t_hell		*init_new_summary(t_tkn_dlist *current);
 
 // Tokenization_calc
 int 		calculate_expanded_len(char *str, t_mini *mini);
@@ -228,18 +233,19 @@ void		set_full_path(t_hell *head, t_mini *mini);
 int			is_builtin(t_hell *cur);
 
 //Parsing1
-t_hell		*init_new_summary(t_tkn_dlist *current);
 void		add_last(t_mini *mini, t_hell *to_add);
 bool 		early_syntax_check(char *input);
-int			parse_input_bla(t_mini *mini);
-char		*ft_strchr(const char *s, int c);
-bool		is_actual_separator(t_tkn_dlist node);
-
+bool		has_wildcards(t_tkn_dlist *head);
+bool		check_tokens_syntax(t_tkn_dlist *h);
 //Parsing2
 char		*first_word_has_no_quotes(char *has_no_quotes);
 char		*first_word_is_quoted(char *may_have_quotes);
 char		*first_word(char *may_have_quotes);
 char		*ft_trim_right(char *totrim);
+
+//Parsing3
 char		*not_first_word(char *may_have_quotes);
+bool		is_actual_separator(t_tkn_dlist node);
+int			parse_tokenize_execute(t_mini *mini);
 
 #endif

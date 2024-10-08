@@ -6,15 +6,15 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 12:42:53 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/03 22:25:45 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/08 12:28:36 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static bool check_double_pipes(char *input)
+static bool	check_double_pipes(char *input)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (input[i] != '\0')
@@ -22,9 +22,7 @@ static bool check_double_pipes(char *input)
 		while (in_q(input, i) != 0)
 			i++;
 		if (input[i] == '\\')
-			{
-				i+=2;
-			}
+			i += 2;
 		if (input[i] == '|' && input[i + 1] && input[i + 1] == '|')
 			return (false);
 		i++;
@@ -32,7 +30,7 @@ static bool check_double_pipes(char *input)
 	return (true);
 }
 
-bool early_syntax_check(char *input)
+bool	early_syntax_check(char *input)
 {
 	bool	rv;
 	int		len;
@@ -48,10 +46,9 @@ bool early_syntax_check(char *input)
 	return (rv);
 }
 
-
 void	add_last(t_mini *mini, t_hell *to_add)
 {
-	t_hell *tmp;
+	t_hell	*tmp;
 
 	if (!mini || !to_add)
 		return ;
@@ -67,7 +64,7 @@ void	add_last(t_mini *mini, t_hell *to_add)
 	tmp->next = to_add;
 }
 
-static bool	has_wildcards(t_tkn_dlist *head)
+bool	has_wildcards(t_tkn_dlist *head)
 {
 	if (!head || !head->next)
 		return (false);
@@ -81,62 +78,31 @@ static bool	has_wildcards(t_tkn_dlist *head)
 	return (false);
 }
 
-bool	is_actual_separator(t_tkn_dlist node)
+bool	check_tokens_syntax(t_tkn_dlist *h)
 {
-	if (is_sep(*node.contents) && !node.quoted)
-		return (true);
-	return (false);
-}
-
-bool	check_tokens_syntax(t_tkn_dlist *head)
-{
-	while (head)
+	while (h)
 	{
-		if (is_actual_separator(*head))
+		if (is_actual_separator(*h))
 		{
-			if (head->next == NULL)
+			if (h->next == NULL)
 			{
-				printf("syntax error to the right of token '%s'\n", head->contents);
+				printf("syntax error to the right of token '%s'\n",
+					h->contents);
 				return (false);
 			}
-			if (is_actual_separator(*head->next) 
-			&& head->next->contents != head->contents 
-			&& (-('>' - '<') != *head->contents - *head->next->contents ||
-				 (ft_strlen(head->contents) + ft_strlen(head->next->contents)) != 2))
+			if (is_actual_separator(*h->next)
+				&& h->next->contents != h->contents
+				&& (-('>' - '<') != *h->contents
+					- *h->next->contents
+					|| (ft_strlen(h->contents)
+						+ ft_strlen(h->next->contents)) != 2))
 			{
-				printf("syntax error near unexpected token '%s'\n", head->next->contents);
+				printf("syntax error near unexpected token '%s'\n",
+					h->next->contents);
 				return (false);
 			}
 		}
-		head = head->next;
+		h = h->next;
 	}
 	return (true);
-}
-
-int	parse_input_bla(t_mini *mini)
-{
-	if (tokenize_input(mini, (char *) mini->spaced_input) != 1)
-		return (-1);
-	if (!check_tokens_syntax(mini->input_tknized))
-		return (-1);
-	if (has_wildcards(mini->input_tknized))
-		autocomplete(mini);
-	if (fill_structs(mini) != 1)
-		return (-2);
-	execution(mini);
-	return (1);
-}
-
-char	*ft_strchr(const char *s, int c)
-{
-	int				i;
-
-	i = 0;
-	while (s[i] != '\0' || (char) c == '\0')
-	{
-		if ((char) s[i] == (char) c)
-			return ((char *) &s[i]);
-		i++;
-	}
-	return (NULL);
 }

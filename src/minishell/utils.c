@@ -6,11 +6,25 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/03 12:12:26 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/09/25 00:25:57 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/08 12:20:04 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*ft_strchr(const char *s, int c)
+{
+	int				i;
+
+	i = 0;
+	while (s[i] != '\0' || (char) c == '\0')
+	{
+		if ((char) s[i] == (char) c)
+			return ((char *) &s[i]);
+		i++;
+	}
+	return (NULL);
+}
 
 int	ft_strncmp(const char *s1_ptr, const char *s2_ptr, size_t n)
 {

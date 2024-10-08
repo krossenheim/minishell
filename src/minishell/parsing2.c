@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 12:42:53 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/03 23:27:13 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/08 12:23:53 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,31 +101,4 @@ char	*ft_trim_right(char *totrim)
 		i--;
 	}
 	return (totrim);
-}
-
-char	*not_first_word(char *mb_hasq)
-{
-	char	*tmp;
-	int		quote_met;
-
-	quote_met = -1;
-	tmp = mb_hasq;
-	while (ft_isspace(*tmp))
-		tmp++;
-	while (*tmp != '\0')
-	{
-		if (ft_isspace(*tmp) && quote_met == -1)
-			break ;
-		if (is_quote(*tmp) && quote_met == -1)
-			quote_met = tmp - mb_hasq;
-		else if (is_quote(*tmp) && quote_met != -1
-			&& mb_hasq[quote_met] == *tmp)
-			break ;
-		tmp++;
-	}
-	if (is_quote(*tmp))
-		tmp++;
-	while (ft_isspace(*tmp))
-		tmp++;
-	return (ft_trim_right(ft_strdup(tmp)));
 }

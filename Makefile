@@ -8,6 +8,7 @@ SOURCES_FLS	=	main.c \
 				minishell/wildcard2_a.c \
 				minishell/ft_clean_exit.c \
 				minishell/heredoc.c \
+				minishell/heredoc2.c \
 				minishell/quotes.c \
 				minishell/utils.c \
 				minishell/signal_handlers.c \
@@ -16,7 +17,6 @@ SOURCES_FLS	=	main.c \
 				minishell/builtin_programs1.c \
 				minishell/builtin_programs2.c \
 				minishell/builtin_programs3.c \
-				minishell/parse_stdin.c \
 				minishell/env_vars.c \
 				minishell/teardown.c \
 				minishell/ft_memcpy.c \
@@ -30,6 +30,7 @@ SOURCES_FLS	=	main.c \
 				minishell/execution1.c \
 				minishell/parsing1.c \
 				minishell/parsing2.c \
+				minishell/parsing3.c \
 				minishell/linked_list/ft_lstnew.c	\
 				minishell/linked_list/ft_lstsize.c	\
 				minishell/linked_list/ft_lstadd_back.c	\
