@@ -35,6 +35,7 @@ SOURCES_FLS	=	main.c \
 				minishell/parsing1.c \
 				minishell/parsing2.c \
 				minishell/parsing3.c \
+				minishell/set_infile_n_outfile.c \
 				minishell/linked_list/ft_lstnew.c	\
 				minishell/linked_list/ft_lstsize.c	\
 				minishell/linked_list/ft_lstadd_back.c	\

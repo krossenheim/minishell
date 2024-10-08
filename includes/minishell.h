@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/03 11:55:22 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/08 21:45:17 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/08 21:50:35 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,4 +228,7 @@ void	update_pwd(char **args, t_mini *mini, char *path);
 char	*get_cd_path(t_list *envp_list);
 void	ft_for_home_cd(char **args, t_mini *mini);
 
+// Infileoutfine
+bool	set_infile(t_hell *dest, t_tkn_dlist *current);
+bool	set_outfile(t_hell *dest, t_tkn_dlist *current);
 #endif
