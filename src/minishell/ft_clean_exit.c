@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/19 10:55:21 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/08 12:16:41 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/08 12:52:31 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,4 @@ void	ft_clean_exit(t_mini *mini)
 {
 	clean_envp_ll(mini);
 	rl_clear_history();
-	printf("Leaving %sPID%d\n", PROMPTLINE, getpid());
 }
