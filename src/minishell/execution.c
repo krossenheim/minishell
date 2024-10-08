@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 12:42:53 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/08 21:49:15 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/08 22:15:42 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,8 +189,12 @@ int execution(t_mini *mini)
 		}
 		else if (!mini->to_exec->next && is_builtin(head) == 1)
 		{
+			ft_redirecs(head);
 			mini->last_exit_code = exec_builtin(head, mini);
 			mini->last_pid = -1;
+			dup2(mini->saved_stdin, STDIN_FILENO);
+			dup2(mini->saved_stdout, STDOUT_FILENO);
+
 		}
 		else if (is_builtin(head) == 1 && ft_is_builtin_new(head, mini, fd, &prev_fd) != 0)
 			ft_parent(head, fd, &prev_fd);
