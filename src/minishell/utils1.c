@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   builtins.c                                         :+:    :+:            */
+/*   utils1.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: diwang <diwang@student.codam.nl>             +#+                     */
+/*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/03 14:21:31 by diwang        #+#    #+#                 */
-/*   Updated: 2024/06/04 12:12:46 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/08 21:10:43 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,58 +122,3 @@ char	**tstr_all(char **tstr, const char *s, char c, int len)
 	tstr[l] = NULL;
 	return (tstr);
 }
-
-char	**ft_split(char const *s, char c)
-{
-	char	**tstr;
-	int		len;
-
-	if (s == NULL)
-		return (NULL);
-	len = word_c(s, c);
-	tstr = malloc((len + 1) * sizeof(char *));
-	if (tstr == NULL)
-		return (NULL);
-	return (tstr_all(tstr, s, c, len));
-}
-
-
-
-
-
-// int main()
-// {
-// 	char *ptr;
-
-// 	while (ptr)
-// 	{
-// 		ptr = readline(STDIN_FILENO);
-// 		printf("%s\n", ptr);
-// 	}
-// 	return (0);
-// }
-
-
-//cc builtins.c -lreadline -lncurses
-
-//ptr = readline("enter some text: ");
-//printf("%s\n", ptr);
-
-//from scratch, write code for echo/export/unset/cd/pwd/env/exit
-
-//echo
-//if you type echo into the shell, as a prompt, display a line of text
-
-// use readline ? b/c i want to return everything after "echo"
-
-
-// int	echo_from_scratch(char **str)
-// {
-// 	char *ptr;
-// 	char *using_echo;
-
-// 	if (using_echo)
-// 	{
-// 		str = ft_split()
-// 	}
-

@@ -11,12 +11,14 @@ SOURCES_FLS	=	main.c \
 				minishell/heredoc2.c \
 				minishell/quotes.c \
 				minishell/utils.c \
+				minishell/utils1.c \
+				minishell/utils2.c \
 				minishell/signal_handlers.c \
-				minishell/builtins.c \
 				minishell/disable_echo_ctrl.c \
 				minishell/builtin_programs1.c \
 				minishell/builtin_programs2.c \
 				minishell/builtin_programs3.c \
+				minishell/builtin_programs.c \
 				minishell/env_vars.c \
 				minishell/teardown.c \
 				minishell/ft_memcpy.c \
