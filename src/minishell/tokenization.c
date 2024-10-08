@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 12:35:41 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/09/26 14:17:09 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/08 12:41:40 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_tkn_dlist	*get_sep_r(t_tkn_dlist *current)
 	return (NULL);
 }
 
-t_tkn_dlist	*next_token_init(char *spaced_line, int *i)
+static t_tkn_dlist	*next_token_init(char *spaced_line, int *i)
 {
 	t_tkn_dlist		*new;
 
@@ -48,7 +48,7 @@ t_tkn_dlist	*next_token_init(char *spaced_line, int *i)
 	return (new);
 }
 
-bool	fill_token(char *str, int *i, t_tkn_dlist *new, t_mini *mini)
+static bool	fill_token(char *str, int *i, t_tkn_dlist *new, t_mini *mini)
 {
 	int	size;
 
@@ -64,39 +64,6 @@ bool	fill_token(char *str, int *i, t_tkn_dlist *new, t_mini *mini)
 	write_tkn(str, i, new, *mini);
 	return (true);
 }
-
-// static bool set_separator_type(t_tkn_dlist *tkn)
-// {
-// 	if (!tkn || tkn->quoted || !tkn->contents || *tkn->contents =='\0')
-// 		return (false);
-// 	if (ft_strlen(tkn->contents) > 2)
-// 		return (false);
-// 	if (ft_strncmp(tkn->contents, ">>", 999) == 0)
-// 		return (true);
-// 	if (ft_strncmp(tkn->contents, "<<", 999) == 0)
-// 		return (false);
-// 	if (ft_strncmp(tkn->contents, "||", 999) == 0)
-// 		return (true);
-// 	if (ft_strncmp(tkn->contents, ">>", 999) == 0)
-// 		return (true);
-// 	if (ft_strncmp(tkn->contents, ">>", 999) == 0)
-// 		return (true);
-// }
-
-// static void	set_token_type(t_tkn_dlist *tkns)
-// {
-// 	t_tkn_dlist *prev;
-
-// 	prev = NULL;
-// 	if (tkns)
-// 		prev = tkns->prev;
-// 	while (tkns)
-// 	{
-// 		if (ft_strlen(tkns->contents) > 2)
-
-// 		tkns = tkns->next;
-// 	}
-// }
 
 int	tokenize_input(t_mini *mini, char *spaced_line)
 {

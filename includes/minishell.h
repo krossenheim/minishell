@@ -6,13 +6,13 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/03 11:55:22 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/08 12:32:08 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/08 12:49:06 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-// # define ECHOCTL 0001000
+# define ECHOCTL 0001000
 # define PROMPTLINE "\e[1;92mMinishell:\e[0m"
 # define TEMP_HEREDOC ".temp_heredoc"
 # include <stdio.h>
@@ -31,18 +31,18 @@
 # include <dirent.h>
 # include <sys/stat.h>
 
-typedef struct s_ll 
+typedef struct s_ll
 {
 	struct s_ll			*next;
 	struct s_ll			*prev;
-	void				*content;			
-}  t_list;
+	void				*content;
+}	t_list;
 
 typedef struct s_match_info {
 	char	*name;
 	bool	isdir;
 	bool	is_match;
-} t_match_info;
+}	t_match_info;
 
 t_list		*ft_lstnew(void *contnet);
 void		ft_lstadd_front(t_list **lst, t_list *newnode);
@@ -66,19 +66,6 @@ typedef struct s_tkn_dlist
 
 }	t_tkn_dlist;
 
-// 1. char **args = ['echo', 'something','\0']
-// 2. char *path = 'usr/bin/echo'
-// 3. infile = 0;
-// 4. outfile = (int)fd file.txt
-// 5. int pipe = 1;
-
-// char **args = NULL
-// char *path = 'usr/bin/cat'
-// int infile = (int)fd  file.txt
-// int outfile = 0
-// int pipe = 0
-
-
 typedef struct t_hell
 {
 	char				**args;
@@ -88,15 +75,15 @@ typedef struct t_hell
 	int					infile;
 	int					outfile;
 	t_tkn_dlist			*firstoken;
-	struct s_mini 		*mini;
+	struct s_mini		*mini;
 	struct t_hell		*next;
 }	t_hell;
 
-typedef struct s_mini 
+typedef struct s_mini
 {
 	char		*home;
 	t_list		*envp;
-	t_tkn_dlist *input_tknized;
+	t_tkn_dlist	*input_tknized;
 	t_hell		*to_exec;
 	char		*spaced_input;
 	int			last_exit_code;
@@ -104,7 +91,7 @@ typedef struct s_mini
 	int			saved_stdout;
 	pid_t		last_pid;
 
-} t_mini;
+}	t_mini;
 
 //Wildcard
 void		autocomplete(t_mini *mini);
@@ -119,22 +106,15 @@ bool		wildcard2_insert(t_tkn_dlist *to_replace,
 				char **replaced,
 				t_tkn_dlist *to_insert,
 				int lstsize);
-//Parse_stdin
-int			parse_input(t_mini mini);
-char		*first_word(char *may_have_quotes);
-char		*not_first_word(char *may_have_quotes);
 
 //Programs1
 int			program_env(t_mini *mini);
-int			program_pwd();
-int	 		program_unset(t_hell *exe, t_mini *mini);
+int			program_pwd(void);
+int			program_unset(t_hell *exe, t_mini *mini);
 void		no_program(char *exe_name);
 int			program_echo(t_hell *to_exec);
 int			program_cd(t_mini *mini);
-
-//Programs2
 int			program_exit(t_mini mini);
-bool		export_formatted(char *export_input);
 int			program_export(char **args, t_mini *mini);
 
 //Env vars
@@ -143,33 +123,29 @@ char		*get_env_var(char *name, t_mini mini);
 t_list		*get_env_node(char *name, t_mini mini);
 
 // Disable echo ctrlcharacters
-void		disable_echo_ctrl_chrcts();
+void		disable_echo_ctrl_chrcts(void);
 
 //Teardown
 void		free_split(char **split);
-void 		clear_last_command(t_mini *mini);
+void		clear_last_command(t_mini *mini);
 
 // Quotes
 bool		is_quote(char c);
 bool		quotes_matched(char *str);
 
 //Utils
+char		*ft_strchr(const char *s, int c);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t		ft_strlen(const char *s);
 bool		ft_isspace(char c);
-char		*ft_strchr(const char *s, int c);
+char		*ft_strjoin(char const *s1, char const *s2);
 
-//Signals
+// Signal_handler
 void		bind_signals(void);
-void		handle_ctrl_d();
-void		handle_ctrl_c();
-
-// Tests
-void		test_quotes_func(void);
-void		test_quotes_func2(void);
+void		handle_ctrl_c(int n);
 
 // ft_itoa
-char	*ft_itoa(int n);
+char		*ft_itoa(int n);
 
 // ft_memcpy
 void		*ft_memcpy(void *dest, const void *src, size_t n);
@@ -181,9 +157,6 @@ int			word_c(const char *s, char c);
 int			ft_fr(char **tstr);
 char		**tstr_all(char **tstr, const char *s, char c, int len);
 char		**ft_split(char const *s, char c);
-
-//
-char		*ft_strjoin(char const *s1, char const *s2);
 
 // ft_clean_exit
 void		ft_clean_exit(t_mini *mini);
@@ -202,8 +175,8 @@ int			fill_structs(t_mini *mini);
 char		**envp_get(t_mini *mini);
 
 // Tokenization
-t_tkn_dlist *get_sep_r(t_tkn_dlist *current);
-int 		tokenize_input(t_mini *mini, char *spaced_line);
+t_tkn_dlist	*get_sep_r(t_tkn_dlist *current);
+int			tokenize_input(t_mini *mini, char *spaced_line);
 
 // Tokenization1
 bool		is_sep(char c);
@@ -215,13 +188,10 @@ int			in_q(char *str, int index);
 t_hell		*init_new_summary(t_tkn_dlist *current);
 
 // Tokenization_calc
-int 		calculate_expanded_len(char *str, t_mini *mini);
+int			calculate_expanded_len(char *str, t_mini *mini);
 
 // Tokenization_write
-void 		write_tkn(char *str, int *i, t_tkn_dlist *unfinished, t_mini mini);
-
-// (move elsewhere)
-int			exec_builtin(t_hell *head, t_mini *mini);
+void		write_tkn(char *str, int *i, t_tkn_dlist *unfinished, t_mini mini);
 
 //Execution
 bool		set_infile(t_hell *dest, t_tkn_dlist *current);
@@ -231,12 +201,14 @@ void		set_full_path(t_hell *head, t_mini *mini);
 
 //Execution1
 int			is_builtin(t_hell *cur);
+int			exec_builtin(t_hell *head, t_mini *mini);
 
 //Parsing1
 void		add_last(t_mini *mini, t_hell *to_add);
-bool 		early_syntax_check(char *input);
+bool		early_syntax_check(char *input);
 bool		has_wildcards(t_tkn_dlist *head);
 bool		check_tokens_syntax(t_tkn_dlist *h);
+
 //Parsing2
 char		*first_word_has_no_quotes(char *has_no_quotes);
 char		*first_word_is_quoted(char *may_have_quotes);

@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/07 12:31:41 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/03 14:06:59 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/08 12:42:16 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,12 @@ int	program_exit(t_mini mini)
 	exit(0);
 }
 
-int	ft_isdigit(int n)
-{
-	return (n >= 48 && n <= 57);
-}
-
-int	ft_isalpha(int n)
+static int	ft_isalpha(int n)
 {
 	return ((n >= 97 && n <= 122) || (n >= 65 && n <= 90));
 }
 
-bool	export_formatted(char *export_input)
+static bool	export_formatted(char *export_input)
 {
 	int i;
 
