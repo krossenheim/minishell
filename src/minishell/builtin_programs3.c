@@ -6,7 +6,7 @@
 /*   By: diwang <diwang@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/26 10:32:14 by diwang        #+#    #+#                 */
-/*   Updated: 2024/10/03 17:22:45 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/08 18:00:39 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,32 @@ static void	update_old_pwd(char **args, t_mini *mini) // take "current" PWD=, be
 		{
 			if (ft_strncmp(envp->content, "OLDPWD=", 7) == 0)
 			{	
-				free(envp->content);
 				pwd = get_pwd(mini);
 				updated = ft_strjoin("OLDPWD=", pwd);
+				free(envp->content);
+				envp->content = ft_strdup(updated);
+				free(updated);
+				return ;
+			}
+			envp = envp->next;
+		}		
+	}
+}
+
+static	void	update_pwd(char **args, t_mini *mini, char *path) // update the NEW pwd... user input, right?
+{
+	t_list *envp;
+	char	*updated;
+
+	envp = mini->envp;
+	if (ft_strncmp(args[0], "cd", 2) == 0)
+	{
+		while (envp)
+		{
+			if (ft_strncmp(envp->content, "PWD=", 4) == 0)
+			{	
+				updated = ft_strjoin("PWD=", path);
+				free(envp->content);
 				envp->content = ft_strdup(updated);
 				free(updated);
 				return ;
@@ -75,35 +98,12 @@ static char	*get_cd_path(t_list *envp_list) // for a few edge cases where you al
 	return (path);
 }
 
-static	void	update_pwd(char **args, t_mini *mini, char *path) // update the NEW pwd... user input, right?
-{
-	t_list *envp;
-	char	*updated;
-
-	envp = mini->envp;
-	if (ft_strncmp(args[0], "cd", 2) == 0)
-	{
-		while (envp)
-		{
-			if (ft_strncmp(envp->content, "PWD=", 4) == 0)
-			{	
-				free(envp->content);
-				updated = ft_strjoin("PWD=", path);
-				envp->content = ft_strdup(updated);
-				free(updated);
-				return ;
-			}
-			envp = envp->next;
-		}		
-	}
-}
-
 static void	ft_for_home_cd(char **args, t_mini *mini)
 {
 	char	*confirm_path;
-
+	
 	confirm_path = get_cd_path(mini->envp);
-	if (access(confirm_path, F_OK) == 0)
+	if (confirm_path && access(confirm_path, F_OK) == 0)
 	{
 		update_old_pwd(args, mini);
 		chdir(confirm_path);
@@ -115,27 +115,23 @@ static void	ft_for_home_cd(char **args, t_mini *mini)
 
 static char	*helper_program_pwd()
 {
-	char buffer[1000];
-	char *buf;
+	char	*buf;
 	
-	buf = getcwd(buffer, 1000);
-	if (buf == NULL)
-	{
-		free(buf);
-		return (0);
-	}
+	buf = getcwd(NULL, 0);
 	return (buf);
 }
 
 static int	ft_everything_cd(char **args, t_mini *mini)
 {
 	char *buf;
+	
 	if (access(args[1], F_OK) == 0)
 	{
 		update_old_pwd(args, mini);
 		chdir(args[1]);
 		buf = helper_program_pwd();
 		update_pwd(args, mini, buf);
+		free(buf);
 	}
 	else
 	{

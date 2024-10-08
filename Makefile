@@ -41,7 +41,7 @@ SOURCES = $(addprefix $(SOURCES_DIR), $(SOURCES_FLS))
 OBJS	=	$(SOURCES:%.c=%.o)
 NAME = mini_shell
 
-CFLAGS	=	-Wall	-Wextra	-Werror -g0 -I ./includes/ 
+CFLAGS	=	 -Wall	-Wextra	-Werror -g -I ./includes/ 
 
 $(NAME): $(OBJS)
 	cc $(OBJS) -D_DEFAULT_SOURCE -std=c99 -lreadline -o $(NAME)
