@@ -1,0 +1,6 @@
+
+// echo <>cat
+// when no path and pwd = .
+// minishell in a minishell and CTRL C
+// echoa | cat -- executing cat
+// script runs?
