@@ -50,7 +50,6 @@ void	_set_full_path(char **split_mypaths, t_hell *cur)
 	}
 }
 
-
 void	set_full_path(t_hell *head, t_mini *mini)
 {
 	char	**split_mypaths;
@@ -63,8 +62,12 @@ void	set_full_path(t_hell *head, t_mini *mini)
 	split_mypaths = ft_split(get_env_var("PATH", *mini), ':');
 	_set_full_path(split_mypaths, head);
 	free_split(split_mypaths);
-	if (!head->path && is_regular_file(head->args[0]))
+	if (!head->path && is_regular_file(head->args[0])
+		&& ft_strncmp(head->args[0], "./", ))
+	{
 		head->path = ft_strdup(head->args[0]);
+		printf("Confi13\n");
+	}
 }
 
 void	ft_set_in_out(t_mini *mini)

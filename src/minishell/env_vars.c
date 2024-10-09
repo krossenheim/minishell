@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/07 12:30:36 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/09/19 09:25:58 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/09 23:21:07 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*get_env_var(char *name, t_mini mini)
 	{
 		if (ft_strncmp(tmp->content, name, ft_strlen(name) + 1) == '=')
 		{
-			var_value = tmp->content;
+			var_value = tmp->content + ft_strlen(name) + 1;
 			break ;
 		}
 		tmp = tmp->next;

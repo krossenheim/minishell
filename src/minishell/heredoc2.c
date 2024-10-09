@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/19 10:19:51 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/09 14:15:55 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/09 23:23:22 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	handle_dollar(char *str, int *i, int dest, t_mini mini)
 	if (get_env_var(tmp1, mini) != NULL)
 	{
 		write(dest,
-			get_env_var(tmp1, mini) + ft_strlen(tmp1) + 1,
-			ft_strlen(get_env_var(tmp1, mini)) - (ft_strlen(tmp1) + 1));
+			get_env_var(tmp1, mini),
+			ft_strlen(get_env_var(tmp1, mini)));
 	}
 	(*i) += (ft_strlen(tmp1) + 1);
 	free(tmp1);

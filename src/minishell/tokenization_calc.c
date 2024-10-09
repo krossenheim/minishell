@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/06 15:38:55 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/08 19:22:45 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/09 23:23:52 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	expanded_var_offset(char *varname, t_mini mini)
 {
 	if (get_env_var(varname, mini) == NULL)
 		return (-(ft_strlen(varname) + 1));
-	return (ft_strlen(get_env_var(varname, mini)) - (ft_strlen(varname) + 1));
+	return (ft_strlen(get_env_var(varname, mini)));
 }
 
 static int	_calc_questionmark(int *i, t_mini *mini)

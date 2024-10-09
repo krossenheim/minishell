@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/19 14:51:08 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/03 23:00:25 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/09 23:24:40 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ void	autocomplete(t_mini *mini)
 	path = get_env_var("PWD", *mini);
 	if (!path)
 		return ;
-	path += 4;
 	folder = opendir(path);
 	if (folder == NULL)
 		return ;

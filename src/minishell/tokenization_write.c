@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/06 15:38:55 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/08 13:20:17 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/09 23:24:24 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ static int	_handle_dollar(char *str, int *i, char *dest, t_mini mini)
 	if (get_env_var(tmp1, mini) != NULL)
 	{
 		ft_memcpy(dest,
-			get_env_var(tmp1, mini) + ft_strlen(tmp1) + 1,
-			ft_strlen(get_env_var(tmp1, mini)) - (ft_strlen(tmp1) + 1));
-		written = ft_strlen(get_env_var(tmp1, mini)) - (ft_strlen(tmp1) + 1);
+			get_env_var(tmp1, mini),
+			ft_strlen(get_env_var(tmp1, mini)));
+		written = ft_strlen(get_env_var(tmp1, mini));
 	}
 	(*i) += (ft_strlen(tmp1) + 1);
 	free(tmp1);
