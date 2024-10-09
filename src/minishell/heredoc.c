@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/19 10:19:51 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/08 12:15:44 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/09 10:31:26 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ bool	heredoc(char *marker, t_mini *mini)
 	int		child_pid;
 
 	status = 0;
+	clear_tempfile();
 	bind_heredoc_signals();
 	pipe(fd);
 	fd[0] = open(TEMP_HEREDOC, O_RDWR | O_CREAT | O_APPEND, 0666);

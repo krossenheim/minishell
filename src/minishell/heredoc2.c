@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/19 10:19:51 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/08 15:26:49 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/09 10:31:16 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,13 @@ void	expanded_vars(char *raw, int fd, t_mini mini)
 			write(fd, raw + i++, 1);
 	}
 	write(fd, "\n", 1);
+}
+
+void	clear_tempfile(void)
+{
+	int	file;
+
+	file = open(TEMP_HEREDOC, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+	if (file > 0)
+		close(file);
 }
