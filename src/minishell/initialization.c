@@ -6,22 +6,27 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 12:47:19 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/09 20:20:34 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/10 00:53:10 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_mini(t_mini *mini, char **envp)
+bool	init_mini(t_mini *mini, char **envp)
 {
 	mini->envp = envp_to_linked_list(envp);
-	mini->home = get_env_var("PWD=", *mini);
+	if (!mini->envp)
+		return (false);
+	mini->home = ft_strdup(get_env_var("HOME", *mini));
+	if (!mini->home)
+		return (false);
 	mini->to_exec = NULL;
 	mini->last_pid = -1;
 	mini->input_tknized = NULL;
-	mini->saved_stdout = dup(STDOUT_FILENO);
-	mini->saved_stdin = dup(STDIN_FILENO);
+	mini->saved_stdout = -1;
+	mini->saved_stdin = -1;
 	mini->last_exit_code = 0;
+	return (true);
 }
 
 int	fill_structs(t_mini *mini)

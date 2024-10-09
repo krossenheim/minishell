@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/06 15:38:55 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/09 23:24:24 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/10 00:48:57 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,16 @@ static int	_w_handle_escaped(char *str, int *i, char *dest, t_tkn_dlist *new)
 	return (written);
 }
 
+static int	_w_home_dir(int *i, char *dest, t_mini *mini)
+{
+	int	written;
+
+	written = ft_strlen(mini->home);
+	ft_memcpy(dest, mini->home, ft_strlen(mini->home));
+	(*i)++;
+	return (written);
+}
+
 void	write_tkn(char *str, int *i, t_tkn_dlist *new, t_mini mini)
 {
 	int		j;
@@ -93,6 +103,8 @@ void	write_tkn(char *str, int *i, t_tkn_dlist *new, t_mini mini)
 			j += _handle_dollar(str, i, new->contents + j, mini);
 		else if (str[*i] == '\\')
 			j += _w_handle_escaped(str, i, new->contents + j, new);
+		else if ((*i == 0 || (*i > 0 && str[*i - 1] == ' ')) && in_q(str, *i) == 0 && str[*i] == '~')
+			j += _w_home_dir(i, new->contents + j, &mini);
 		else
 			new->contents[j++] = str[(*i)++];
 	}

@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/03 11:57:48 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/09 17:43:59 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/10 00:54:10 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,11 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc != 1 || (0 && argv))
 		printf("This program takes no arguments, they will be ignored.\n");
-	init_mini(&mini, envp);
+	if (!init_mini(&mini, envp))
+	{
+		printf("Failure initializing t_mini\n");
+		return (3);
+	}
 	bind_signals();
 	disable_echo_ctrl_chrcts();
 	return_value = main_loop(&mini);

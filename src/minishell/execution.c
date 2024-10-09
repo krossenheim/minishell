@@ -63,7 +63,7 @@ void	set_full_path(t_hell *head, t_mini *mini)
 	_set_full_path(split_mypaths, head);
 	free_split(split_mypaths);
 	if (!head->path && is_regular_file(head->args[0])
-		&& ft_strncmp(head->args[0], "./", ))
+		&& *head->args[0] == '.')
 	{
 		head->path = ft_strdup(head->args[0]);
 		printf("Confi13\n");
