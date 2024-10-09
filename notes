@@ -3,4 +3,4 @@
 // when no path and pwd = .
 // minishell in a minishell and CTRL C
 // echoa | cat -- executing cat
-// script runs?
+// script runs?, also, it runs a builting when ./builtin, instead of , trying to execute the file biulting in tihs directory
