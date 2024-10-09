@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/03 11:57:48 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/10 00:54:10 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/10 01:01:06 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ static char	*space_readline(char *prompt)
 {
 	char	*line;
 	char	*tmp;
+	char	*freeme;
 
 	tmp = readline(prompt);
+	freeme = tmp;
 	if (tmp == NULL)
 		return (NULL);
 	while (tmp && ft_isspace(*tmp))
@@ -28,7 +30,7 @@ static char	*space_readline(char *prompt)
 	line = space_separators(tmp);
 	if (!line)
 		return (NULL);
-	free(tmp);
+	free(freeme);
 	return (line);
 }
 

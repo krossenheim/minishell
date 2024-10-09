@@ -16,6 +16,7 @@ bool	is_regular_file(char *path)
 {
 	bool	rv;
 
+	rv = false;
 	struct stat stat_path;
 	stat(path, &stat_path);
 	rv = S_ISREG(stat_path.st_mode);
