@@ -6,19 +6,19 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/03 11:57:48 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/08 13:19:52 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/09 14:18:50 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char *space_readline(char *prompt)
+static char	*space_readline(char *prompt)
 {
-	char 	*line;
-	char 	*tmp;
+	char	*line;
+	char	*tmp;
 
 	tmp = readline(prompt);
-	if (tmp == NULL)	
+	if (tmp == NULL)
 		return (NULL);
 	while (tmp && ft_isspace(*tmp))
 		tmp++;
@@ -31,16 +31,17 @@ static char *space_readline(char *prompt)
 	free(tmp);
 	return (line);
 }
+
 int	main_loop(t_mini *mini)
 {
 	while (1)
 	{
 		mini->spaced_input = space_readline(PROMPTLINE);
 		if (mini->spaced_input == NULL)
-			break; 
+			break ;
 		if ((*mini->spaced_input == '\0')
-		|| !quotes_matched(mini->spaced_input) 
-		|| !early_syntax_check(mini->spaced_input) )
+			| !quotes_matched(mini->spaced_input)
+			|| !early_syntax_check(mini->spaced_input))
 			continue ;
 		parse_tokenize_execute(mini);
 		clear_last_command(mini);

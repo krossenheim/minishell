@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/03 11:55:22 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/09 10:33:46 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/09 14:25:20 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ typedef struct s_ll
 	void				*content;
 }	t_list;
 
-typedef struct s_match_info {
+typedef struct s_match_info
+{
 	char	*name;
 	bool	isdir;
 	bool	is_match;
@@ -126,7 +127,7 @@ t_list		*get_env_node(char *name, t_mini mini);
 void		disable_echo_ctrl_chrcts(void);
 
 //Teardown
-void		free_split(char **split);
+int			free_split(char **split);
 void		clear_last_command(t_mini *mini);
 
 // Quotes
@@ -200,10 +201,30 @@ bool		set_infile(t_hell *dest, t_tkn_dlist *current);
 bool		set_outfile(t_hell *dest, t_tkn_dlist *current);
 int			execution(t_mini *mini);
 void		set_full_path(t_hell *head, t_mini *mini);
+void		ft_waitloop(void);
 
 //Execution1
 int			is_builtin(t_hell *cur);
 int			exec_builtin(t_hell *head, t_mini *mini);
+void		ft_pipe(t_hell *head, t_mini *mini, int fd[2]);
+void		ft_bite_size_write(int fd[2]);
+int			ft_pid(pid_t pid);
+
+//Execution2
+void		ft_parent(t_hell *head, int fd[2], int *prev_fd);
+void		ft_execution_helper(t_mini *mini, t_hell *head);
+void		ft_execution_helper2(t_mini *mini, t_hell *head);
+void		ft_execution_helper3(t_mini *mini);
+int			execution(t_mini *mini);
+
+//Execution3
+int			ft_is_not_builtin(t_hell *head, t_mini *mini,
+				int fd[2], int *prev_fd);
+int			ft_newbi(t_hell *head, t_mini *mini, int fd[2], int *prev_fd);
+void		ft_redirecs(t_hell *head);
+void		ft_close_in_out(t_mini *mini);
+void		ft_close_redirecs(t_hell *head);
+void		ft_set_in_out(t_mini *mini);
 
 //Parsing1
 void		add_last(t_mini *mini, t_hell *to_add);
@@ -223,13 +244,13 @@ bool		is_actual_separator(t_tkn_dlist node);
 int			parse_tokenize_execute(t_mini *mini);
 
 // Builtin programs 3b
-char	*get_pwd(t_mini *mini);
-void	update_old_pwd(char **args, t_mini *mini);
-void	update_pwd(char **args, t_mini *mini, char *path);
-char	*get_cd_path(t_list *envp_list);
-void	ft_for_home_cd(char **args, t_mini *mini);
+char		*get_pwd(t_mini *mini);
+void		update_old_pwd(char **args, t_mini *mini);
+void		update_pwd(char **args, t_mini *mini, char *path);
+char		*get_cd_path(t_list *envp_list);
+void		ft_for_home_cd(char **args, t_mini *mini);
 
 // Infileoutfine
-bool	set_infile(t_hell *dest, t_tkn_dlist *current);
-bool	set_outfile(t_hell *dest, t_tkn_dlist *current);
+bool		set_infile(t_hell *dest, t_tkn_dlist *current);
+bool		set_outfile(t_hell *dest, t_tkn_dlist *current);
 #endif

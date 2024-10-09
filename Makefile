@@ -32,6 +32,8 @@ SOURCES_FLS	=	main.c \
 				minishell/initialization.c \
 				minishell/execution.c \
 				minishell/execution1.c \
+				minishell/execution2.c \
+				minishell/execution3.c \
 				minishell/parsing1.c \
 				minishell/parsing2.c \
 				minishell/parsing3.c \

@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/05 19:51:27 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/03 23:09:11 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/09 14:13:33 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	clear_tokens(t_mini *mini)
 	mini->input_tknized = NULL;
 }
 
-void	free_split(char **split)
+int	free_split(char **split)
 {
 	int	i;
 
@@ -44,6 +44,7 @@ void	free_split(char **split)
 	}
 	if (split)
 		free(split);
+	return (1);
 }
 
 static void	clear_exec_struct(t_mini *mini)

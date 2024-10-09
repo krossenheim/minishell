@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/26 10:32:14 by diwang        #+#    #+#                 */
-/*   Updated: 2024/10/08 21:36:24 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/09 14:35:25 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	program_cd(t_mini *mini)
 	args = mini->to_exec->args;
 	if (mini->to_exec->argc > 2)
 	{
-		perror("too many arguments");
+		write(mini->saved_stdout, "cd: too many arguments\n", 24);
 		return (1);
 	}
 	if (ft_strncmp(args[0], "cd", 2) == 0 && ft_strlen(args[0]) == 2)

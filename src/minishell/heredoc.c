@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/19 10:19:51 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/09 11:14:12 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/09 14:16:09 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,13 @@ void	child_process(char *marker, int fd, t_mini *mini)
 	exit(1);
 }
 
-static void	bind_heredoc_signals(void)
+static void	bind_heredoc_signals_and_cleartemp(void)
 {
+	int	file;
+
+	file = open(TEMP_HEREDOC, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+	if (file > 0)
+		close(file);
 	signal(SIGQUIT, SIG_DFL);
 	signal(SIGINT, killdoc);
 }
@@ -59,8 +64,7 @@ bool	heredoc(char *marker, t_mini *mini)
 	int		child_pid;
 
 	status = 0;
-	clear_tempfile();
-	bind_heredoc_signals();
+	bind_heredoc_signals_and_cleartemp();
 	pipe(fd);
 	fd[0] = open(TEMP_HEREDOC, O_RDWR | O_CREAT | O_APPEND, 0666);
 	if (!fd[0] || dup2(fd[0], fd[1]) == -1)
