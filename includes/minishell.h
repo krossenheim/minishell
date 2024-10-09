@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/03 11:55:22 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/09 10:57:20 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/09 10:33:46 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,10 +163,13 @@ char		**ft_split(char const *s, char c);
 void		ft_clean_exit(t_mini *mini);
 
 // Heredoc 
-
+void		keep_questionmark(int *i, int dest, t_mini mini);
+void		handle_dollar(char *str, int *i, int dest, t_mini mini);
+void		expanded_vars(char *raw, int fd, t_mini mini);
 
 //Heredoc 2
 bool		heredoc(char *marker, t_mini *mini);
+void		clear_tempfile(void);
 
 // Initialization
 void		init_mini(t_mini *mini, char **envp);
