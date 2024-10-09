@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 12:42:53 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/09 14:22:54 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/09 14:56:21 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	exec_builtin(t_hell *head, t_mini *mini)
 	else if (ft_strncmp(head->args[0], "export", 60) == 0)
 		return (program_export(head->args, mini));
 	else if (ft_strncmp(head->args[0], "cd", 20) == 0)
-		return (program_cd(mini));
+		return (program_cd(mini, head));
 	return (1);
 }
 

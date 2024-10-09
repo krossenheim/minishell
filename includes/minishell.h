@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/03 11:55:22 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/09 14:25:20 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/09 14:56:48 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int			program_pwd(void);
 int			program_unset(t_hell *exe, t_mini *mini);
 void		no_program(char *exe_name);
 int			program_echo(t_hell *to_exec);
-int			program_cd(t_mini *mini);
+int			program_cd(t_mini *mini, t_hell *cur);
 int			program_exit(t_mini mini);
 int			program_export(char **args, t_mini *mini);
 

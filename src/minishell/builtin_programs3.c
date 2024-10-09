@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/26 10:32:14 by diwang        #+#    #+#                 */
-/*   Updated: 2024/10/09 14:47:22 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/09 15:01:48 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,19 @@ static int	ft_everything_cd(char **args, t_mini *mini)
 	return (0);
 }
 
-int	program_cd(t_mini *mini)
+int	program_cd(t_mini *mini, t_hell *cur)
 {
 	char	**args;
 
-	args = mini->to_exec->args;
-	if (mini->to_exec->argc > 2)
+	args = cur->args;
+	if (cur->argc > 2)
 	{
-		write(mini->saved_stdin, "cd: too many arguments\n", 24);
+		write(mini->saved_stdout, "cd: too many arguments\n", 24);
 		return (1);
 	}
 	if (ft_strncmp(args[0], "cd", 2) == 0 && ft_strlen(args[0]) == 2)
 	{
-		if ((mini->to_exec->argc == 1)
+		if ((cur->argc == 1)
 			&& (ft_strncmp(args[0], "cd", 2) == 0) && ft_strlen(args[0]) == 2)
 			ft_for_home_cd(args, mini);
 		else if ((ft_strncmp(args[1], "~", 2) == 0) && ft_strlen(args[1]) == 1)
