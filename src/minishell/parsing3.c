@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 12:42:53 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/08 12:24:48 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/09 14:48:55 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,13 @@ int	parse_tokenize_execute(t_mini *mini)
 		autocomplete(mini);
 	if (fill_structs(mini) != 1)
 		return (-2);
+	t_hell *tmp;
+
+	tmp = mini->to_exec;
+	while (tmp)
+	{
+		printf("Argument c")
+	}
 	if (execution(mini) != 1)
 		return (-3);
 	return (1);
