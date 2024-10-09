@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/03 11:57:48 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/09 14:18:50 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/09 17:43:59 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	main_loop(t_mini *mini)
 		if (mini->spaced_input == NULL)
 			break ;
 		if ((*mini->spaced_input == '\0')
-			| !quotes_matched(mini->spaced_input)
+			|| !quotes_matched(mini->spaced_input)
 			|| !early_syntax_check(mini->spaced_input))
 			continue ;
 		parse_tokenize_execute(mini);
