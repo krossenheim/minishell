@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 12:42:53 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/09 14:56:21 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/09 22:36:22 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	exec_builtin(t_hell *head, t_mini *mini)
 
 void	ft_waitloop(void)
 {
-	while (waitpid(-1, NULL, 0) == 0)
+	while (waitpid(-1, NULL, 0) != -1)
 		continue ;
 }
 
