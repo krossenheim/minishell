@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/08 21:49:03 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/09 10:32:33 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/09 17:39:40 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,19 @@ static void	maybe_close(int fd)
 {
 	if (fd != -2)
 		close(fd);
+}
+
+
+t_tkn_dlist	*get_filename(t_tkn_dlist *current)
+{
+	t_tkn_dlist	*tmp;
+
+	if (!current)
+		return (NULL);
+	tmp = get_sep_r(current);
+	while (tmp && tmp->next && tmp->is_sep)
+		tmp = tmp->next;
+	return (tmp);
 }
 
 bool	set_infile(t_hell *dest, t_tkn_dlist *current)
@@ -30,17 +43,17 @@ bool	set_infile(t_hell *dest, t_tkn_dlist *current)
 	if (ns->next && *ns->contents == '<' && ft_strlen(ns->contents) == 1)
 	{
 		maybe_close(dest->outfile);
-		file = open(ns->next->contents, O_RDONLY, 0644);
+		file = open(get_filename(current)->contents, O_RDONLY, 0644);
 	}
 	else if (ns->next && *ns->contents == '<' && ft_strlen(ns->contents) == 2)
 	{
 		maybe_close(dest->outfile);
-		heredoc(ns->next->contents, (t_mini *) dest->mini);
+		heredoc(get_filename(current)->contents, (t_mini *) dest->mini);
 		file = open(TEMP_HEREDOC, O_RDONLY, 0666);
 	}
 	if (file == -1)
 	{
-		printf("No permissions to open file '%s'\n", ns->next->contents);
+		printf("No permissions to open file '%s'\n", get_filename(current)->contents);
 		return (false);
 	}
 	dest->infile = file;
@@ -52,7 +65,7 @@ bool	set_outfile(t_hell *dest, t_tkn_dlist *current)
 	int			file;
 	t_tkn_dlist	*ns;
 
-	ns = get_sep_r(current);
+	ns = get_filename(current);
 	if (!ns || *ns->contents != '>')
 		return (true);
 	file = -2;

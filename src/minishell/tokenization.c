@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 12:35:41 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/08 13:18:34 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/09 17:39:46 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static t_tkn_dlist	*next_token_init(char *spaced_line, int *i)
 	}
 	new->next = NULL;
 	new->prev = NULL;
+	new->is_sep = false;
 	new->quoted = false;
 	if (is_quote(spaced_line[*i]))
 		new->quoted = true;
@@ -62,6 +63,8 @@ static bool	fill_token(char *str, int *i, t_tkn_dlist *new, t_mini *mini)
 	if (new->contents == NULL)
 		write(1, "Mallloc error", 14);
 	write_tkn(str, i, new, *mini);
+	if (is_sep(*new->contents) && !new->quoted)
+		new->is_sep = true;
 	return (true);
 }
 
