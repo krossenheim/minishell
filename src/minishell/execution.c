@@ -12,6 +12,21 @@
 
 #include "minishell.h"
 
+bool	is_regular_file(char *path)
+{
+	bool	rv;
+
+	struct stat stat_path;
+	stat(path, &stat_path);
+	rv = S_ISREG(stat_path.st_mode);
+	if (!rv && S_ISDIR(stat_path.st_mode))
+	{
+		write(1, path, ft_strlen(path));
+		write(1, ": Is a directory\n", 18);
+	}
+	return (rv);
+}
+
 void	_set_full_path(char **split_mypaths, t_hell *cur)
 {
 	int		i;
@@ -24,7 +39,7 @@ void	_set_full_path(char **split_mypaths, t_hell *cur)
 		find_path = ft_strjoin(split_mypaths[i], "/");
 		confirm_path = ft_strjoin(find_path, cur->args[0]);
 		free(find_path);
-		if (cur->path == NULL && access(confirm_path, F_OK) == 0)
+		if (cur->path == NULL && is_regular_file(confirm_path))
 		{
 			cur->path = confirm_path;
 			break ;
@@ -34,6 +49,7 @@ void	_set_full_path(char **split_mypaths, t_hell *cur)
 		i++;
 	}
 }
+
 
 void	set_full_path(t_hell *head, t_mini *mini)
 {
@@ -47,7 +63,7 @@ void	set_full_path(t_hell *head, t_mini *mini)
 	split_mypaths = ft_split(get_env_var("PATH", *mini), ':');
 	_set_full_path(split_mypaths, head);
 	free_split(split_mypaths);
-	if (!head->path && access(head->args[0], F_OK) == 0)
+	if (!head->path && is_regular_file(head->args[0]))
 		head->path = ft_strdup(head->args[0]);
 }
 

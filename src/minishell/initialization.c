@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 12:47:19 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/08 12:35:01 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/09 18:33:14 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	fill_structs(t_mini *mini)
 		{
 			new = init_new_summary(tokens);
 			set_full_path(new, mini);
+			printf("Path is '%s'\n", new->path);
 			if (!new)
 				return (-1);
 			add_last(mini, new);
