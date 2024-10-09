@@ -6,26 +6,78 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/19 10:19:51 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/09 10:31:26 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/09 10:56:32 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	g_killsig;
+int killsig;
 
-void	killdoc(int _)
+static void  _keep_questionmark(int *i, int dest, t_mini mini)
 {
-	if (0 && _)
-		exit(2);
-	g_killsig = 1;
+	char *strval;
+
+	strval = ft_itoa(mini.last_exit_code);
+	write(dest, strval, ft_strlen(strval));
+	free(strval);
+	(*i) += 2;
+}
+
+static void _handle_dollar(char *str, int *i, int dest, t_mini mini)
+{
+	char	*tmp;
+	char	*tmp1;
+
+	tmp = str + (*i + 1);
+	if (*tmp == '?')
+		return (_keep_questionmark(i, dest, mini));
+	while (isalnum(*tmp) || *tmp == '_')
+		tmp++;
+	tmp--;
+	tmp1 = ft_substr(str + *i + 1, 0, tmp - (str + *i));
+	if (!tmp1)
+		return ;
+	if (get_env_var(tmp1, mini) != NULL)
+	{
+		write(dest,
+			get_env_var(tmp1, mini) + ft_strlen(tmp1) + 1,
+			ft_strlen(get_env_var(tmp1, mini)) - (ft_strlen(tmp1) + 1));
+	}
+	(*i) += (ft_strlen(tmp1) + 1);
+	free(tmp1);
+}
+
+static void	expanded_vars(char *raw, int fd, t_mini mini)
+{
+	int		i;
+	
+	i = 0;
+	while (raw[i] != '\0')
+	{
+		if (raw[i] == '$')
+			_handle_dollar(raw, &i, fd, mini);
+		else
+			write(fd, raw + i++, 1);
+	}
+	write(fd, "\n", 1);
+}
+
+void	killdoc()
+{
+	killsig = 1;
+}
+
+void quit()
+{
+	exit(2);
 }
 
 void	child_process(char *marker, int fd, t_mini *mini)
 {
-	char	*line;
-
-	while (g_killsig == 0)
+	char *line;
+	
+	while (killsig == 0)
 	{
 		line = readline("> ");
 		if (ft_strncmp(marker, line, INT_MAX) == 0)
@@ -36,20 +88,6 @@ void	child_process(char *marker, int fd, t_mini *mini)
 		expanded_vars(line, fd, *mini);
 		free(line);
 	}
-	close(fd);
-	exit(0);
-}
-
-static void	bind_heredoc_signals(void)
-{
-	signal(SIGQUIT, SIG_DFL);
-	signal(SIGINT, killdoc);
-}
-
-static void	bind_back_to_default(void)
-{
-	signal(SIGINT, handle_ctrl_c);
-	signal(SIGQUIT, SIG_IGN);
 }
 
 bool	heredoc(char *marker, t_mini *mini)
@@ -57,10 +95,10 @@ bool	heredoc(char *marker, t_mini *mini)
 	int		fd[2];
 	int		status;
 	int		child_pid;
-
+	
 	status = 0;
-	clear_tempfile();
-	bind_heredoc_signals();
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, killdoc);
 	pipe(fd);
 	fd[0] = open(TEMP_HEREDOC, O_RDWR | O_CREAT | O_APPEND, 0666);
 	if (!fd[0] || dup2(fd[0], fd[1]) == -1)
@@ -68,16 +106,23 @@ bool	heredoc(char *marker, t_mini *mini)
 		write(1, "Heredoc Dup2 failure\n", 22);
 		return (false);
 	}
-	g_killsig = 0;
+	if (fd[0] == 1)
+		return (false);
+	killsig = 0;
 	child_pid = fork();
 	if (child_pid == -1)
 		return (false);
 	if (child_pid == 0)
+	{
 		child_process(marker, fd[1], mini);
-	while (g_killsig == 0 && WEXITSTATUS(status) != 1)
+		close(fd[1]);
+		exit(1);
+	}
+	while (killsig == 0 && WEXITSTATUS(status) != 1)
 		waitpid(child_pid, &status, WNOHANG);
 	kill(child_pid, SIGQUIT);
-	bind_back_to_default();
+	signal(SIGINT, handle_ctrl_c);
+	signal(SIGQUIT, SIG_IGN);
 	close(fd[0]);
-	return (!g_killsig);
+	return (!killsig);
 }
