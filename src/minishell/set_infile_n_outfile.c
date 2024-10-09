@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/08 21:49:03 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/09 17:39:40 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/09 19:50:55 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ bool	set_outfile(t_hell *dest, t_tkn_dlist *current)
 	int			file;
 	t_tkn_dlist	*ns;
 
-	ns = get_filename(current);
+	ns = get_sep_r(current);
 	if (!ns || *ns->contents != '>')
 		return (true);
 	file = -2;
