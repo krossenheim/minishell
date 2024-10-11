@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/03 11:55:22 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/11 14:29:01 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/11 14:57:14 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,9 @@ typedef struct t_hell
 	char				**args;
 	int					argc;
 	char				*path;
-	int					pipe;
 	int					infile;
 	int					outfile;
-	t_tkn_dlist			*firstoken;
+	bool				cancel;
 	struct s_mini		*mini;
 	struct t_hell		*next;
 }	t_hell;
@@ -206,7 +205,7 @@ void		ft_waitloop(void);
 //Execution1
 int			is_builtin(t_hell *cur);
 int			exec_builtin(t_hell *head, t_mini *mini);
-void		ft_pipe(t_hell *head, t_mini *mini, int fd[2]);
+void		ft_pipe(t_hell *head, int fd[2]);
 void		ft_bite_size_write(int fd[2]);
 int			ft_pid(pid_t pid);
 

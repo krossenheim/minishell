@@ -89,11 +89,10 @@ void	ft_set_in_out(t_mini *mini)
 	mini->saved_stdin = dup(STDIN_FILENO);
 }
 
-void	ft_pipe(t_hell *head, t_mini *mini, int fd[2])
+void	ft_pipe(t_hell *head, int fd[2])
 {
 	if (head->next != NULL)
 	{
-		mini->to_exec->pipe = 1;
 		if (pipe(fd) == -1)
 			perror("pipe");
 	}
