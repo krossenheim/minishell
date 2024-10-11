@@ -6,3 +6,6 @@ trash/*.out
 mini_shell
 temp_heredoc
 *copy.c
+!/src*.c
+tester
+minishell

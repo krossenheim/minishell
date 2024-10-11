@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/03 11:55:22 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/10 00:54:42 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/11 14:11:06 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,4 +253,8 @@ void		ft_for_home_cd(char **args, t_mini *mini);
 // Infileoutfine
 bool		set_infile(t_hell *dest, t_tkn_dlist *current);
 bool		set_outfile(t_hell *dest, t_tkn_dlist *current);
+
+// TBD
+bool		is_regular_file(char *path);
+
 #endif
