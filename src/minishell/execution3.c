@@ -6,11 +6,18 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/09 14:05:59 by diwang        #+#    #+#                 */
-/*   Updated: 2024/10/11 15:16:04 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/11 15:28:23 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	ft_prev_fd( int *prev_fd)
+{
+	if (dup2(*prev_fd, STDIN_FILENO) == -1)
+		perror("dup2 prev_fd");
+	close(*prev_fd);
+}
 
 int	ft_is_not_builtin(t_hell *head, t_mini *mini,
 	int fd[2], int *prev_fd)
@@ -24,12 +31,10 @@ int	ft_is_not_builtin(t_hell *head, t_mini *mini,
 		return (-1);
 	if (pid == 0)
 	{
+		if ((!head->path))
+			printf("%s: command not found\n", head->args[0]);
 		if (*prev_fd != -1)
-		{
-			if (dup2(*prev_fd, STDIN_FILENO) == -1)
-				perror("dup2 prev_fd");
-			close(*prev_fd);
-		}
+			ft_prev_fd(fd);
 		if (head->next != NULL)
 			ft_bite_size_write(fd);
 		ft_redirecs(head);

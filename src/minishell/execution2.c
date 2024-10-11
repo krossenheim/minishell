@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/09 14:05:37 by diwang        #+#    #+#                 */
-/*   Updated: 2024/10/11 15:15:51 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/11 15:27:33 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,7 @@ int	execution(t_mini *mini)
 	head = mini->to_exec;
 	while (head != NULL)
 	{
-		if (head->cancel)
-		{
-			head = head->next;
-			continue;
-		}
-		if (!head->path)
-			ft_execution_helper(mini, head);
-		else if (!mini->to_exec->next && is_builtin(head) == 1)
+		if (!mini->to_exec->next && is_builtin(head) == 1)
 			ft_execution_helper2(mini, head);
 		else if (is_builtin(head) == 1 && ft_newbi(head, mini, fd, &p_fd) != 0)
 			ft_parent(head, fd, &p_fd);

@@ -18,7 +18,7 @@ bool	is_regular_file(char *path, bool verbose_nofile)
 
 	if (!path)
 		return (false);
-	if (!access(path, F_OK) == 0)
+	if (!(access(path, F_OK) == 0))
 	{
 		if (verbose_nofile)
 		{
