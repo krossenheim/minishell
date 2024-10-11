@@ -41,7 +41,7 @@ bool	is_regular_file(char *path, bool verbose_nofile)
 	return (false);
 }
 
-static void	_set_full_path(char **split_mypaths, t_hell *cur, t_mini *mini)
+static void	_set_full_path(char **split_mypaths, t_hell *cur)
 {
 	int		i;
 	char	*confirm_path;
@@ -74,7 +74,7 @@ void	set_full_path(t_hell *head, t_mini *mini)
 		return ;
 	}
 	split_mypaths = ft_split(get_env_var("PATH", *mini), ':');
-	_set_full_path(split_mypaths, head, mini);
+	_set_full_path(split_mypaths, head);
 	free_split(split_mypaths);
 	if (!head->path && is_regular_file(head->args[0], false)
 		&& *head->args[0] == '.')
