@@ -14,18 +14,22 @@
 
 bool	is_regular_file(char *path)
 {
-	bool	rv;
-
-	rv = false;
 	struct stat stat_path;
-	stat(path, &stat_path);
-	rv = S_ISREG(stat_path.st_mode);
-	if (!rv && S_ISDIR(stat_path.st_mode))
+
+	if (!path)
+		return (false);
+	if (!access(path, F_OK) == 0)
+		return (false);
+	if (stat(path, &stat_path) != 0)
+		write(2, "Fatal error could not stat()\n", 30);
+	if (S_ISREG(stat_path.st_mode))
+		return (true);
+	if (S_ISDIR(stat_path.st_mode))
 	{
 		write(1, path, ft_strlen(path));
 		write(1, ": Is a directory\n", 18);
 	}
-	return (rv);
+	return (false);
 }
 
 void	_set_full_path(char **split_mypaths, t_hell *cur)
