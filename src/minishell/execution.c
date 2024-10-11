@@ -14,21 +14,21 @@
 
 bool	is_regular_file(char *path)
 {
-	bool	rv;
 
-	rv = false;
 	struct stat stat_path;
 	stat(path, &stat_path);
-	rv = S_ISREG(stat_path.st_mode);
-	if (!rv && S_ISDIR(stat_path.st_mode))
+	if S_ISREG(stat_path.st_mode);
+		return (true);
+	if (!S_ISDIR(stat_path.st_mode))
 	{
-		write(1, path, ft_strlen(path));
-		write(1, ": Is a directory\n", 18);
+		write(2, path, ft_strlen(path));
+		write(2, ": is a directory.\n", 19);
+		mini->last_exit_code = 126;
 	}
-	return (rv);
+	return (false);
 }
 
-void	_set_full_path(char **split_mypaths, t_hell *cur)
+static void	_set_full_path(char **split_mypaths, t_hell *cur, t_mini *mini)
 {
 	int		i;
 	char	*confirm_path;
@@ -61,7 +61,7 @@ void	set_full_path(t_hell *head, t_mini *mini)
 		return ;
 	}
 	split_mypaths = ft_split(get_env_var("PATH", *mini), ':');
-	_set_full_path(split_mypaths, head);
+	_set_full_path(split_mypaths, head, mini);
 	free_split(split_mypaths);
 	if (!head->path && is_regular_file(head->args[0])
 		&& *head->args[0] == '.')

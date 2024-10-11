@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/09 14:05:37 by diwang        #+#    #+#                 */
-/*   Updated: 2024/10/11 10:06:21 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/11 11:13:05 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ void	ft_parent(t_hell *head, int fd[2], int *prev_fd)
 
 void	ft_execution_helper(t_mini *mini, t_hell *head)
 {
-	printf("%s: command not found\n", head->args[0]);
+	write(2, PROMPTLINE, ft_strlen(PROMPTLINE));
+	write(2, head->args[0], ft_strlen(head->args[0]));
+	write(2, ": command not found\n", 21);
 	mini->last_pid = -1;
 	mini->last_exit_code = 127;
 }

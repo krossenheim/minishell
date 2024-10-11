@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/07 12:31:41 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/11 08:52:49 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/11 11:12:36 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ static bool	export_formatted(char *export_input)
 			withinvar = false;
 		if (withinvar && !ft_isalpha(export_input[i]))
 		{
-			write(STDERR_FILENO, "export: `", 9);
-			write(STDERR_FILENO, export_input, ft_strlen(export_input));
-			write(STDERR_FILENO, "': not a valid identifier\n", 27);
+			write(2, "export: `", 9);
+			write(2, export_input, ft_strlen(export_input));
+			write(2, " not a valid identifier\n", 25);
 			return (0);
 		}
 		i++;
