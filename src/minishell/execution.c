@@ -12,22 +12,31 @@
 
 #include "minishell.h"
 
-bool	is_regular_file(char *path)
+bool	is_regular_file(char *path, bool verbose_nofile)
 {
 	struct stat stat_path;
 
 	if (!path)
 		return (false);
 	if (!access(path, F_OK) == 0)
+	{
+		if (verbose_nofile)
+		{
+			write(2, "minishell: ", 12);
+			write(2, path, ft_strlen(path));
+			write(2, ": No such file or diretory\n", 28);
+		}
 		return (false);
+	}
 	if (stat(path, &stat_path) != 0)
 		write(2, "Fatal error could not stat()\n", 30);
 	if (S_ISREG(stat_path.st_mode))
 		return (true);
 	if (S_ISDIR(stat_path.st_mode))
 	{
-		write(1, path, ft_strlen(path));
-		write(1, ": Is a directory\n", 18);
+		write(2, "minishell: ", 12);
+		write(2, path, ft_strlen(path));
+		write(2, ": Is a directory\n", 18);
 	}
 	return (false);
 }
@@ -44,7 +53,7 @@ void	_set_full_path(char **split_mypaths, t_hell *cur)
 		find_path = ft_strjoin(split_mypaths[i], "/");
 		confirm_path = ft_strjoin(find_path, cur->args[0]);
 		free(find_path);
-		if (cur->path == NULL && is_regular_file(confirm_path))
+		if (cur->path == NULL && is_regular_file(confirm_path, false))
 		{
 			cur->path = confirm_path;
 			break ;
@@ -67,7 +76,7 @@ void	set_full_path(t_hell *head, t_mini *mini)
 	split_mypaths = ft_split(get_env_var("PATH", *mini), ':');
 	_set_full_path(split_mypaths, head);
 	free_split(split_mypaths);
-	if (!head->path && is_regular_file(head->args[0])
+	if (!head->path && is_regular_file(head->args[0], false)
 		&& *head->args[0] == '.')
 	{
 		head->path = ft_strdup(head->args[0]);

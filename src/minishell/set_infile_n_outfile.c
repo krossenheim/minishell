@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/08 21:49:03 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/11 14:18:15 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/11 14:23:10 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ bool	set_infile(t_hell *dest, t_tkn_dlist *current)
 
 	ns = get_sep_r(current);
 	file = -2;
-	if (!ns || *ns->contents != '<' || !is_regular_file(get_filename(current)->contents))
+	if (!ns || *ns->contents != '<')
+		return (true);
+	if (!is_regular_file(get_filename(current)->contents, true))
 		return (true);
 	if (ns->next && *ns->contents == '<' && ft_strlen(ns->contents) == 1)
 	{
