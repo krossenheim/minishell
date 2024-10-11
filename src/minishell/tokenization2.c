@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 12:40:33 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/11 09:31:08 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/11 14:49:56 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ t_hell	*init_new_summary(t_tkn_dlist *current)
 	new->path = NULL;
 	args_size = get_argv_array_current_token_size(current);
 	new->next = NULL;
+	new->cancel = false;
 	new->args = malloc(sizeof(char *) * (args_size + 1));
 	if (!new->args)
 	{

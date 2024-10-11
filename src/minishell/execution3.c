@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/09 14:05:59 by diwang        #+#    #+#                 */
-/*   Updated: 2024/10/11 10:34:09 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/11 15:16:04 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_is_not_builtin(t_hell *head, t_mini *mini,
 	pid_t	pid;
 	char	**envp;
 
-	ft_pipe(head, mini, fd);
+	ft_pipe(head, fd);
 	pid = fork();
 	if (ft_pid(pid) == -1)
 		return (-1);
@@ -47,7 +47,7 @@ int	ft_newbi(t_hell *head,
 {
 	pid_t	pid;
 
-	ft_pipe(head, mini, fd);
+	ft_pipe(head, fd);
 	pid = fork();
 	if (pid == -1)
 		perror("fork");
