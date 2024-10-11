@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/09 14:05:59 by diwang        #+#    #+#                 */
-/*   Updated: 2024/10/11 15:28:23 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/11 15:50:24 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ int	ft_is_not_builtin(t_hell *head, t_mini *mini,
 	if (pid == 0)
 	{
 		if ((!head->path))
+		{
 			printf("%s: command not found\n", head->args[0]);
+			return (-1);
+		}
 		if (*prev_fd != -1)
 			ft_prev_fd(fd);
 		if (head->next != NULL)
