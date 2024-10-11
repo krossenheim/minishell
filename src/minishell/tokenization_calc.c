@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/06 15:38:55 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/10 00:49:19 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/11 09:07:16 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	calculate_expanded_len(char *s, t_mini *mini)
 		}
 		else if (is_quote(s[i]) && in_q(s, i) == 0)
 			i++;
-		else if (in_q(s, i) < 2 && s[i] == '$' && s[i + 1] && s[i + 1] != ' ')
+		else if (in_q(s, i) < 2 && s[i] == '$' && s[i + 1] && s[i + 1] != ' ' && in_q(s, i) == in_q(s, i + 1))
 			_calculate_expanded_len(s, &i, &j, mini);
 		else if (s[i] == '\\')
 			_calc_deal_with_escaped(s, &i, &j);

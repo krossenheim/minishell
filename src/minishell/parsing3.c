@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 12:42:53 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/09 14:53:00 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/11 09:33:36 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ bool	is_actual_separator(t_tkn_dlist node)
 int	parse_tokenize_execute(t_mini *mini)
 {
 	if (tokenize_input(mini, (char *) mini->spaced_input) != 1)
-		return (-1);
+		return (1);
 	if (!check_tokens_syntax(mini->input_tknized))
-		return (-1);
+		return (1);
 	if (has_wildcards(mini->input_tknized))
 		autocomplete(mini);
 	if (fill_structs(mini) != 1)
-		return (-2);
+		return (1);
 	if (execution(mini) != 1)
-		return (-3);
-	return (1);
+		return (1);
+	return (0);
 }

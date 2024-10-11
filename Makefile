@@ -46,7 +46,7 @@ SOURCES_FLS	=	main.c \
 
 SOURCES = $(addprefix $(SOURCES_DIR), $(SOURCES_FLS))
 OBJS	=	$(SOURCES:%.c=%.o)
-NAME = mini_shell
+NAME = minishell
 
 CFLAGS	=	 -Wall	-Wextra	-Werror -g -I ./includes/ 
 

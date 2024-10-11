@@ -1,2 +1,6 @@
-echo hi
-echo >>> hi
+#!/bin/bash
+make
+cd tester
+./tester
+cd ..
+

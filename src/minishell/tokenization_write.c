@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/06 15:38:55 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/10 00:48:57 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/10 16:41:08 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	write_tkn(char *str, int *i, t_tkn_dlist *new, t_mini mini)
 		else if (is_quote(str[*i]) && in_q(str, *i) == 0)
 			(*i)++;
 		else if (in_q(str, *i) < 2 && str[*i] == '$' && str[*i + 1] != '\0'
-			&& str[*i + 1] != ' ')
+			&& str[*i + 1] != ' ' && in_q(str, *i) == in_q(str, *i + 1))
 			j += _handle_dollar(str, i, new->contents + j, mini);
 		else if (str[*i] == '\\')
 			j += _w_handle_escaped(str, i, new->contents + j, new);

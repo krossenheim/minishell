@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/03 11:57:48 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/10 01:01:06 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/11 09:45:01 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,17 @@ static char	*space_readline(char *prompt)
 	while (tmp && ft_isspace(*tmp))
 		tmp++;
 	if (*tmp == '\0')
+	{
+		free(freeme);
 		return ("");
+	}
 	add_history(tmp);
 	line = space_separators(tmp);
 	if (!line)
+	{
+		free(freeme);
 		return (NULL);
+	}
 	free(freeme);
 	return (line);
 }
@@ -44,8 +50,11 @@ int	main_loop(t_mini *mini)
 		if ((*mini->spaced_input == '\0')
 			|| !quotes_matched(mini->spaced_input)
 			|| !early_syntax_check(mini->spaced_input))
-			continue ;
-		parse_tokenize_execute(mini);
+			{
+				continue ;
+			}
+		if (parse_tokenize_execute(mini) != 0)
+			mini->last_exit_code = 1;
 		clear_last_command(mini);
 	}
 	return (1);
@@ -57,7 +66,7 @@ int	main(int argc, char **argv, char **envp)
 	int		return_value;
 
 	if (argc != 1 || (0 && argv))
-		printf("This program takes no arguments, they will be ignored.\n");
+		printf("This program takes no arguments, they will be ignored.\n"); 
 	if (!init_mini(&mini, envp))
 	{
 		printf("Failure initializing t_mini\n");

@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/09 14:05:37 by diwang        #+#    #+#                 */
-/*   Updated: 2024/10/09 23:03:18 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/11 10:06:21 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	execution(t_mini *mini)
 	head = mini->to_exec;
 	while (head != NULL)
 	{
+		// printf("Argc:%d, argv[0]:%s, argv[%d]:%s\n", head->argc, head->args[0], head->argc, head->args[head->argc]);
 		if (!head->path)
 			ft_execution_helper(mini, head);
 		else if (!mini->to_exec->next && is_builtin(head) == 1)

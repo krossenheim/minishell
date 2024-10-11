@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 12:40:33 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/09/25 00:08:42 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/11 09:31:08 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,14 @@ static void	fill_argv(char **dest, int size, t_tkn_dlist *current)
 	i = 0;
 	while (size > 0)
 	{
+		if (current->is_sep)
+		{
+			while (current && current->is_sep)
+				current = current->next;
+			if (current)
+				current = current->next;
+			continue ;
+		}
 		dest[i++] = ft_strdup(current->contents);
 		current = current->next;
 		size--;
@@ -74,8 +82,16 @@ static int	get_argv_array_current_token_size(t_tkn_dlist *current)
 
 	i = 0;
 	tmp = current;
-	while (tmp && (tmp->quoted || !is_sep(*tmp->contents)))
+	while (tmp && (tmp->quoted || (!tmp->is_sep) || (*tmp->contents == '>' || *tmp->contents == '<')))
 	{
+		if (tmp->is_sep)
+		{
+			while (tmp && tmp->is_sep)
+				tmp = tmp->next;
+			if (tmp)
+				tmp = tmp->next;
+			continue ;
+		}
 		tmp = tmp->next;
 		i++;
 	}

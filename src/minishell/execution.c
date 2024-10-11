@@ -67,7 +67,6 @@ void	set_full_path(t_hell *head, t_mini *mini)
 		&& *head->args[0] == '.')
 	{
 		head->path = ft_strdup(head->args[0]);
-		printf("Confi13\n");
 	}
 }
 

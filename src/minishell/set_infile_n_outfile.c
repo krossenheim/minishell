@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/08 21:49:03 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/09 19:50:55 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/11 09:41:42 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,10 @@ bool	set_infile(t_hell *dest, t_tkn_dlist *current)
 		heredoc(get_filename(current)->contents, (t_mini *) dest->mini);
 		file = open(TEMP_HEREDOC, O_RDONLY, 0666);
 	}
-	if (file == -1)
-	{
-		printf("No permissions to open file '%s'\n", get_filename(current)->contents);
-		return (false);
-	}
-	dest->infile = file;
+	if (file > 0)
+		dest->infile = file;
+	else if (file == -1)
+		write(2, "No such file or no permissions\n", 32);
 	return (true);
 }
 
@@ -79,11 +77,10 @@ bool	set_outfile(t_hell *dest, t_tkn_dlist *current)
 		maybe_close(dest->outfile);
 		file = open(ns->next->contents, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	}
-	if (file == -1)
-	{
-		printf("No permissions to open file: '%s'\n", ns->next->contents);
-		return (false);
-	}
+	if (file > 0)
+		dest->outfile = file;
+	else if (file == -1)
+		write(2, "No such file or no permissions\n", 32);
 	dest->outfile = file;
 	return (true);
 }

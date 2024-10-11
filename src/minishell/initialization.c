@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 12:47:19 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/10 00:53:10 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/11 10:02:36 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	fill_structs(t_mini *mini)
 				return (-1);
 			add_last(mini, new);
 		}
-		if (!(set_infile(new, tokens) && set_outfile(new, tokens)))
+		if (!(set_outfile(new, tokens) && set_infile(new, tokens)))
 			return (-1);
 		sepahead = get_sep_r(tokens);
 		if (!sepahead)
