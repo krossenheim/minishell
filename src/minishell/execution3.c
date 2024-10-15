@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/09 14:05:59 by diwang        #+#    #+#                 */
-/*   Updated: 2024/10/11 15:50:24 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/15 14:35:31 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,16 @@ static void	ft_prev_fd( int *prev_fd)
 	if (dup2(*prev_fd, STDIN_FILENO) == -1)
 		perror("dup2 prev_fd");
 	close(*prev_fd);
+}
+
+static int	check_correct_command(t_hell *head)
+{
+	if ((!head->path))
+	{
+		printf("%s: command not found\n", head->args[0]);
+		return (-1);
+	}
+	return (0);
 }
 
 int	ft_is_not_builtin(t_hell *head, t_mini *mini,
@@ -31,11 +41,8 @@ int	ft_is_not_builtin(t_hell *head, t_mini *mini,
 		return (-1);
 	if (pid == 0)
 	{
-		if ((!head->path))
-		{
-			printf("%s: command not found\n", head->args[0]);
+		if (check_correct_command(head) == -1)
 			return (-1);
-		}
 		if (*prev_fd != -1)
 			ft_prev_fd(fd);
 		if (head->next != NULL)
@@ -76,32 +83,4 @@ int	ft_newbi(t_hell *head,
 	}
 	mini->last_pid = pid;
 	return (pid);
-}
-
-void	ft_close_in_out(t_mini *mini)
-{
-	close(mini->saved_stdout);
-	close(mini->saved_stdin);
-}
-
-void	ft_close_redirecs(t_hell *head)
-{
-	if (head->infile > 0)
-		close(head->infile);
-	if (head->outfile > 0)
-		close(head->outfile);
-}
-
-void	ft_redirecs(t_hell *head)
-{
-	if (head->infile > 0)
-	{
-		if (dup2(head->infile, STDIN_FILENO) == -1)
-			perror("Dup2 error infile");
-	}
-	if (head->outfile > 0)
-	{
-		if (dup2(head->outfile, STDOUT_FILENO) == -1)
-			perror("Dup2 error outfile");
-	}
 }

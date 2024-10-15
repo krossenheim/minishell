@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/07 12:31:41 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/11 11:12:36 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/15 14:36:19 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static bool	export_formatted(char *export_input)
 {
 	int				i;
-	bool	withinvar;
+	bool			withinvar;
 
 	withinvar = true;
 	i = 0;

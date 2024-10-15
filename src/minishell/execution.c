@@ -14,7 +14,7 @@
 
 bool	is_regular_file(char *path, bool verbose_nofile)
 {
-	struct stat stat_path;
+	struct stat	stat_path;
 
 	if (!path)
 		return (false);
@@ -96,12 +96,4 @@ void	ft_pipe(t_hell *head, int fd[2])
 		if (pipe(fd) == -1)
 			perror("pipe");
 	}
-}
-
-void	ft_bite_size_write(int fd[2])
-{
-	close(fd[0]);
-	if (dup2(fd[1], STDOUT_FILENO) == -1)
-		perror("dup2 fd[1]");
-	close(fd[1]);
 }

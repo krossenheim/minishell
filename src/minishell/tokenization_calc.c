@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/06 15:38:55 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/11 09:07:16 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/15 14:46:58 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,6 @@ static void	_calc_deal_with_escaped(char *str, int *i, int *j)
 	(*i) += 2;
 }
 
-static void	_calc_home_dir_len(int *i, int *j, t_mini *mini)
-{
-	(*j) += ft_strlen(mini->home);
-	(*i)++;
-}
-
 int	calculate_expanded_len(char *s, t_mini *mini)
 {
 	int		i;
@@ -89,23 +83,18 @@ int	calculate_expanded_len(char *s, t_mini *mini)
 	while (s[i] != '\0' && (in_q(s, i) != 0 || !ft_isspace(s[i])))
 	{
 		if (in_q(s, i) == 2)
-		{
-			i++;
-			j++;
-		}
+			increase_both(&i, &j);
 		else if (is_quote(s[i]) && in_q(s, i) == 0)
 			i++;
-		else if (in_q(s, i) < 2 && s[i] == '$' && s[i + 1] && s[i + 1] != ' ' && in_q(s, i) == in_q(s, i + 1))
+		else if (should_expand_dollarvar(s, i))
 			_calculate_expanded_len(s, &i, &j, mini);
 		else if (s[i] == '\\')
 			_calc_deal_with_escaped(s, &i, &j);
-		else if ((i == 0 || (i > 0 && s[i - 1] == ' ')) && in_q(s, i) == 0 && s[i] == '~')
+		else if ((i == 0 || (i > 0 && s[i - 1] == ' '))
+			&& in_q(s, i) == 0 && s[i] == '~')
 			_calc_home_dir_len(&i, &j, mini);
 		else
-		{
-			i++;
-			j++;
-		}
+			increase_both(&i, &j);
 	}
 	return (j);
 }

@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/03 11:55:22 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/11 14:57:14 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/15 14:46:34 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,11 @@ void		ft_skip_spaces(char *line, int *i);
 int			in_q(char *str, int index);
 t_hell		*init_new_summary(t_tkn_dlist *current);
 
+// Tokenization3
+bool		should_replace_squiggle(int *i, char *s);
+int			_w_home_dir(int *i, char *dest, t_mini *mini);
+void		_calc_home_dir_len(int *i, int *j, t_mini *mini);
+
 // Tokenization_calc
 int			calculate_expanded_len(char *str, t_mini *mini);
 
@@ -241,6 +246,8 @@ char		*ft_trim_right(char *totrim);
 char		*not_first_word(char *may_have_quotes);
 bool		is_actual_separator(t_tkn_dlist node);
 int			parse_tokenize_execute(t_mini *mini);
+bool		should_expand_dollarvar(char *s, int i);
+void		increase_both(int *a, int *b);
 
 // Builtin programs 3b
 char		*get_pwd(t_mini *mini);

@@ -27,6 +27,7 @@ SOURCES_FLS	=	main.c \
 				minishell/tokenization.c \
 				minishell/tokenization1.c \
 				minishell/tokenization2.c \
+				minishell/tokenization3.c \
 				minishell/tokenization_write.c \
 				minishell/tokenization_calc.c \
 				minishell/initialization.c \
@@ -34,6 +35,7 @@ SOURCES_FLS	=	main.c \
 				minishell/execution1.c \
 				minishell/execution2.c \
 				minishell/execution3.c \
+				minishell/execution4.c \
 				minishell/parsing1.c \
 				minishell/parsing2.c \
 				minishell/parsing3.c \

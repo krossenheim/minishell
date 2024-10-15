@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/08 21:49:03 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/11 14:49:23 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/15 14:48:41 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static void	maybe_close(int fd)
 	if (fd != -2)
 		close(fd);
 }
-
 
 t_tkn_dlist	*get_filename(t_tkn_dlist *current)
 {
@@ -41,10 +40,7 @@ bool	set_infile(t_hell *dest, t_tkn_dlist *current)
 	if (!ns || *ns->contents != '<')
 		return (true);
 	if (!is_regular_file(get_filename(current)->contents, true))
-	{
-		dest->cancel = true;
 		return (true);
-	}
 	if (ns->next && *ns->contents == '<' && ft_strlen(ns->contents) == 1)
 	{
 		maybe_close(dest->outfile);

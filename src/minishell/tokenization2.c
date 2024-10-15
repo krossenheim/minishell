@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 12:40:33 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/11 14:49:56 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/15 14:49:36 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ static int	get_argv_array_current_token_size(t_tkn_dlist *current)
 
 	i = 0;
 	tmp = current;
-	while (tmp && (tmp->quoted || (!tmp->is_sep) || (*tmp->contents == '>' || *tmp->contents == '<')))
+	while (tmp && (tmp->quoted || (!tmp->is_sep)
+			|| (*tmp->contents == '>' || *tmp->contents == '<')))
 	{
 		if (tmp->is_sep)
 		{

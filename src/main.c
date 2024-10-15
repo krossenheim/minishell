@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/03 11:57:48 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/11 10:47:27 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/15 14:50:09 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,7 @@ int	main_loop(t_mini *mini)
 		if ((*mini->spaced_input == '\0')
 			|| !quotes_matched(mini->spaced_input)
 			|| !early_syntax_check(mini->spaced_input))
-			{
-				continue ;
-			}
+			continue ;
 		if (parse_tokenize_execute(mini) != 0)
 			mini->last_exit_code = 1;
 		clear_last_command(mini);
@@ -66,7 +64,7 @@ int	main(int argc, char **argv, char **envp)
 	int		return_value;
 
 	if (argc != 1 || (0 && argv))
-		printf("This program takes no arguments, they will be ignored.\n"); 
+		printf("This program takes no arguments, they will be ignored.\n");
 	if (!init_mini(&mini, envp))
 	{
 		printf("Failure initializing t_mini\n");

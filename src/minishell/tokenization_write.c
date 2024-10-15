@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/06 15:38:55 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/10 16:41:08 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/15 14:42:03 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,36 +77,26 @@ static int	_w_handle_escaped(char *str, int *i, char *dest, t_tkn_dlist *new)
 	return (written);
 }
 
-static int	_w_home_dir(int *i, char *dest, t_mini *mini)
-{
-	int	written;
-
-	written = ft_strlen(mini->home);
-	ft_memcpy(dest, mini->home, ft_strlen(mini->home));
-	(*i)++;
-	return (written);
-}
-
-void	write_tkn(char *str, int *i, t_tkn_dlist *new, t_mini mini)
+void	write_tkn(char *s, int *i, t_tkn_dlist *new, t_mini mini)
 {
 	int		j;
 
 	j = 0;
-	while (str[*i] != '\0' && (in_q(str, *i) > 0 || !ft_isspace(str[*i])))
+	while (s[*i] != '\0' && (in_q(s, *i) > 0 || !ft_isspace(s[*i])))
 	{
-		if (in_q(str, *i) == 2)
-			new->contents[j++] = str[(*i)++];
-		else if (is_quote(str[*i]) && in_q(str, *i) == 0)
+		if (in_q(s, *i) == 2)
+			new->contents[j++] = s[(*i)++];
+		else if (is_quote(s[*i]) && in_q(s, *i) == 0)
 			(*i)++;
-		else if (in_q(str, *i) < 2 && str[*i] == '$' && str[*i + 1] != '\0'
-			&& str[*i + 1] != ' ' && in_q(str, *i) == in_q(str, *i + 1))
-			j += _handle_dollar(str, i, new->contents + j, mini);
-		else if (str[*i] == '\\')
-			j += _w_handle_escaped(str, i, new->contents + j, new);
-		else if ((*i == 0 || (*i > 0 && str[*i - 1] == ' ')) && in_q(str, *i) == 0 && str[*i] == '~')
+		else if (in_q(s, *i) < 2 && s[*i] == '$' && s[*i + 1] != '\0'
+			&& s[*i + 1] != ' ' && in_q(s, *i) == in_q(s, *i + 1))
+			j += _handle_dollar(s, i, new->contents + j, mini);
+		else if (s[*i] == '\\')
+			j += _w_handle_escaped(s, i, new->contents + j, new);
+		else if (should_replace_squiggle(i, s))
 			j += _w_home_dir(i, new->contents + j, &mini);
 		else
-			new->contents[j++] = str[(*i)++];
+			new->contents[j++] = s[(*i)++];
 	}
 	new->contents[j++] = '\0';
 }
