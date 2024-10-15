@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/09 14:05:59 by diwang        #+#    #+#                 */
-/*   Updated: 2024/10/15 14:35:31 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/15 15:49:29 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	check_correct_command(t_hell *head)
 	if ((!head->path))
 	{
 		printf("%s: command not found\n", head->args[0]);
-		return (-1);
+		exit(127);
 	}
 	return (0);
 }
