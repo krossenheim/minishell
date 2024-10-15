@@ -81,6 +81,8 @@ void	set_full_path(t_hell *head, t_mini *mini)
 	{
 		head->path = ft_strdup(head->args[0]);
 	}
+	if (!head->path && is_regular_file(head->args[0], false))
+		head->path = ft_strdup(head->args[0]);
 }
 
 void	ft_set_in_out(t_mini *mini)
