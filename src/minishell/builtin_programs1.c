@@ -6,91 +6,82 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/07 12:31:41 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/08 21:24:09 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/16 16:23:57 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	program_env(t_mini *mini)
+int	check_newline(t_hell *node, int i)
 {
-	t_list	*tmp;
+	int	j;
 
-	tmp = mini->envp;
-	while (tmp != NULL)
+	j = 2;
+	if (ft_strncmp(node->args[i], "-n", 2) == 0)
 	{
-		printf("%s\n", (char *) tmp->content);
-		tmp = tmp->next;
+		while (node->args[i][j] == 'n')
+			j++;
+		if (node->args[i][j] == '\0')
+			return (0);
 	}
-	return (0);
+	return (-1);
 }
 
-int	program_pwd(void)
+int	echo_newline(t_hell *node, int i)
 {
-	char	buffer[1000];
-	char	*buf;
+	int	j;
 
-	buf = getcwd(buffer, 1000);
-	if (buf == NULL)
+	while (node->args[i])
 	{
-		free(buf);
-		return (1);
-	}
-	printf("%s\n", buffer);
-	return (0);
-}
-
-static bool	has_newline(t_hell *to_exec, int *i)
-{
-	char	*tmp;
-
-	tmp = to_exec->args[*i];
-	if (to_exec->argc <= 1)
-		return (false);
-	if (ft_strncmp(to_exec->args[*i], "-n", 2) == 0)
-	{
-		tmp = tmp + 2;
-		while (*tmp)
+		j = 0;
+		while (node->args[i][j])
 		{
-			if (*tmp != 'n')
-				return (false);
-			tmp++;
+			write(1, &node->args[i][j], 1);
+			j++;
+			if (node->args[i][j] == '\0' && node->args[i + 1])
+				write(1, " ", 1);
 		}
-		return (true);
+		i++;
 	}
-	return (false);
+	return (0);
 }
 
-static void	_program_echo(t_hell *to_exec, int *i)
+void	yes_newline(t_hell *node, int i)
 {
 	int	j;
 
 	j = 0;
-	while (to_exec->args[*i][j])
+	while (node->args[i][j])
 	{
-		write(1, &to_exec->args[*i][j], 1);
+		write(1, &node->args[i][j], 1);
 		j++;
+		if (node->args[i][j] == '\0' && node->args[i + 1])
+			write(1, " ", 1);
 	}
-	if (to_exec->args[*i + 1])
-		write(1, " ", 1);
-	(*i)++;
 }
 
-int	program_echo(t_hell *to_exec)
+int	program_echo(t_hell *node)
 {
-	int		i;
-	bool	newline;
+	int	i;
+	int	j;
 
 	i = 1;
-	newline = true;
-	if (has_newline(to_exec, &i))
+	while (node->args[i])
 	{
+		if (ft_strncmp(node->args[1], "-n", 3) == 0
+			|| (ft_strncmp(node->args[1], "-n", 2) == 0
+				&& check_newline(node, i) == 0))
+		{
+			while ((ft_strncmp(node->args[i], "-n", 3) == 0
+					|| check_newline(node, i) == 0) && node->args[i])
+				i++;
+			echo_newline(node, i);
+			return (0);
+		}
+		j = 0;
+		yes_newline(node, i);
 		i++;
-		newline = false;
 	}
-	while (to_exec->argc > i)
-		_program_echo(to_exec, &i);
-	if (newline)
-		write(1, "\n", 1);
+	write (1, "\n", 1);
 	return (0);
 }
