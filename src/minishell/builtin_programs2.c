@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/07 12:31:41 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/17 12:37:56 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/17 20:22:20 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	program_exit(t_mini mini, t_hell *node)
 
 	args = node->args;
 	if (node->argc == 2)
-		mini.last_exit_code = atoi(args[1]) % 256;
+		mini.last_exit_code = ft_atoi(args[1]) % 256;
 	clear_last_command(&mini);
 	ft_clean_exit(&mini);
 	exit(mini.last_exit_code);

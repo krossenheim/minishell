@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/03 11:55:22 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/17 13:24:21 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/17 20:22:06 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ size_t		ft_strlen(const char *s);
 bool		ft_isspace(char c);
 char		*ft_strjoin(char const *s1, char const *s2);
 int			ft_isalpha(int n);
+int			ft_atoi(const char *nptr);
 
 // Signal_handler
 void		bind_signals(void);
