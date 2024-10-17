@@ -6,13 +6,13 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/09 14:05:59 by diwang        #+#    #+#                 */
-/*   Updated: 2024/10/17 13:16:57 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/17 20:02:44 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_prev_fd( int *prev_fd)
+static void	ft_prev_fd(int *prev_fd)
 {
 	if (dup2(*prev_fd, STDIN_FILENO) == -1)
 		perror("dup2 prev_fd");
@@ -116,7 +116,7 @@ int	ft_is_not_builtin(t_hell *head, t_mini *mini,
 		if (check_correct_command(head) == -1)
 			return (-1);
 		if (*prev_fd != -1)
-			ft_prev_fd(fd);
+			ft_prev_fd(prev_fd);
 		if (head->next != NULL)
 			ft_bite_size_write(fd);
 		ft_redirecs(head);
