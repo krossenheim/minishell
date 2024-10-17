@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/07 12:31:41 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/16 16:17:45 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/17 12:37:56 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,14 @@ int	program_pwd(void)
 	return (0);
 }
 
-int	program_exit(t_mini mini)
+int	program_exit(t_mini mini, t_hell *node)
 {
+	char	**args;
+
+	args = node->args;
+	if (node->argc == 2)
+		mini.last_exit_code = atoi(args[1]) % 256;
 	clear_last_command(&mini);
 	ft_clean_exit(&mini);
-	exit(0);
+	exit(mini.last_exit_code);
 }

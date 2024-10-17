@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/03 12:42:53 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/09 22:36:22 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/17 12:27:03 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	exec_builtin(t_hell *head, t_mini *mini)
 	else if (ft_strncmp(head->args[0], "echo", 40) == 0)
 		return (program_echo(head));
 	else if (ft_strncmp(head->args[0], "exit", 40) == 0)
-		return (program_exit(*mini));
+		return (program_exit(*mini, head));
 	else if (ft_strncmp(head->args[0], "export", 60) == 0)
 		return (program_export(head->args, mini));
 	else if (ft_strncmp(head->args[0], "cd", 20) == 0)

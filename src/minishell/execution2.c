@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/09 14:05:37 by diwang        #+#    #+#                 */
-/*   Updated: 2024/10/11 15:27:33 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/17 13:17:08 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,31 @@ void	ft_execution_helper3(t_mini *mini)
 	waitpid(mini->last_pid, &mini->last_exit_code, 0);
 	mini->last_exit_code = WEXITSTATUS(mini->last_exit_code);
 }
+
+// int	execution(t_mini *mini)
+// {
+// 	t_hell	*head;
+// 	int		fd[2];
+// 	int		p_fd;
+
+// 	p_fd = -1;
+// 	ft_set_in_out(mini);
+// 	head = mini->to_exec;
+// 	while (head != NULL)
+// 	{
+// 		if (!mini->to_exec->next && is_builtin(head) == 1)
+// 			ft_execution_helper2(mini, head);
+// 		else if (ft_main_exec(head, mini, fd, &p_fd) != 0)
+// 			ft_parent(head, fd, &p_fd);
+// 		ft_close_redirecs(head);
+// 		head = head->next;
+// 	}
+// 	ft_close_in_out(mini);
+// 	if (mini->last_pid >= 0)
+// 		ft_execution_helper3(mini);
+// 	ft_waitloop();
+// 	return (1);
+// }
 
 int	execution(t_mini *mini)
 {

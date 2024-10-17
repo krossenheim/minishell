@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/03 11:55:22 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/15 14:46:34 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/17 13:24:21 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ typedef struct s_mini
 	int			saved_stdin;
 	int			saved_stdout;
 	pid_t		last_pid;
-
 }	t_mini;
 
 //Wildcard
@@ -114,7 +113,7 @@ int			program_unset(t_hell *exe, t_mini *mini);
 void		no_program(char *exe_name);
 int			program_echo(t_hell *to_exec);
 int			program_cd(t_mini *mini, t_hell *cur);
-int			program_exit(t_mini mini);
+int			program_exit(t_mini mini, t_hell *node);
 int			program_export(char **args, t_mini *mini);
 
 //Env vars
@@ -224,7 +223,7 @@ int			execution(t_mini *mini);
 //Execution3
 int			ft_is_not_builtin(t_hell *head, t_mini *mini,
 				int fd[2], int *prev_fd);
-int			ft_newbi(t_hell *head, t_mini *mini, int fd[2], int *prev_fd);
+int			ft_newbi(t_hell *head,t_mini *mini, int fd[2], int *prev_fd);
 void		ft_redirecs(t_hell *head);
 void		ft_close_in_out(t_mini *mini);
 void		ft_close_redirecs(t_hell *head);
