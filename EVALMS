@@ -262,3 +262,5 @@ exit prints exit ?
 
 DONE::::::
 cat | cat | ls hangs (diane) , why does it hang?
+added ft_atoi to exit
+updated echo - jose to test?
