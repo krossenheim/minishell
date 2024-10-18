@@ -252,13 +252,15 @@ fix wrap readline() (jose) why does it wrap?
 
 tab behaviour, what is happening? what should happen? (jose/diane) , ask
 
-Display multiple munishell? Why doesi t display multiple minishells?
+Display multiple munishell? Why doesi t display multiple minishells? 
 
 /abspath/file/doesntexist 
 
 ./cat definately cant be runnning the actual cat command.
 
-exit prints exit ?
+exit prints exit ? (diane)
+disable signals in parent while child process running. enable again. (Diane)
+RUN through the MS eval sheet again
 
 DONE::::::
 cat | cat | ls hangs (diane) , why does it hang?
