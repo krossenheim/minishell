@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/09 14:05:59 by diwang        #+#    #+#                 */
-/*   Updated: 2024/10/18 12:49:34 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/18 12:55:31 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ int	ft_main_exec(t_hell *head, t_mini *mini,
 		return (-1);
 	if (pid == 0)
 	{
-		if (check_correct_command(head) == -1)
-			return (-1);
+		check_correct_command(head);
 		if (*prev_fd != -1)
 			ft_prev_fd(prev_fd);
 		if (head->next != NULL)
