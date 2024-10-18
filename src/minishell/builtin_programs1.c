@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/07 12:31:41 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/16 16:23:57 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/18 16:39:10 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	yes_newline(t_hell *node, int i)
 int	program_echo(t_hell *node)
 {
 	int	i;
-	int	j;
 
 	i = 1;
 	while (node->args[i])
@@ -78,7 +77,6 @@ int	program_echo(t_hell *node)
 			echo_newline(node, i);
 			return (0);
 		}
-		j = 0;
 		yes_newline(node, i);
 		i++;
 	}
