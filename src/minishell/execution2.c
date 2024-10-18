@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/09 14:05:37 by diwang        #+#    #+#                 */
-/*   Updated: 2024/10/18 13:06:12 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/18 14:29:22 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,12 @@ void	ft_exit_code_helper(t_mini *mini)
 	mini->last_exit_code = WEXITSTATUS(mini->last_exit_code);
 }
 
+static void	disable_signals(void)
+{
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+}
+
 int	execution(t_mini *mini)
 {
 	t_hell	*head;
@@ -47,6 +53,7 @@ int	execution(t_mini *mini)
 	p_fd = -1;
 	ft_set_in_out(mini);
 	head = mini->to_exec;
+	disable_signals();
 	while (head != NULL)
 	{
 		if (!mini->to_exec->next && is_builtin(head) == 1)
@@ -60,5 +67,6 @@ int	execution(t_mini *mini)
 	if (mini->last_pid >= 0)
 		ft_exit_code_helper(mini);
 	ft_waitloop();
+	bind_signals();
 	return (1);
 }

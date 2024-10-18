@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/03 11:55:22 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/18 13:06:33 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/18 13:08:49 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,9 +223,6 @@ int			execution(t_mini *mini);
 //Execution3
 int			ft_main_exec(t_hell *head, t_mini *mini,
 				int fd[2], int *prev_fd);
-//int			ft_is_not_builtin(t_hell *head, t_mini *mini,
-	//			int fd[2], int *prev_fd);
-//int			ft_newbi(t_hell *head,t_mini *mini, int fd[2], int *prev_fd);
 void		ft_redirecs(t_hell *head);
 void		ft_close_in_out(t_mini *mini);
 void		ft_close_redirecs(t_hell *head);
