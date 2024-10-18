@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/09 14:05:37 by diwang        #+#    #+#                 */
-/*   Updated: 2024/10/18 12:46:59 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/18 13:06:12 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,7 @@ void	ft_parent(t_hell *head, int fd[2], int *prev_fd)
 	}
 }
 
-void	ft_execution_helper(t_mini *mini, t_hell *head)
-{
-	write(2, head->args[0], ft_strlen(head->args[0]));
-	write(2, ": command not found\n", 21);
-	mini->last_pid = -1;
-	mini->last_exit_code = 127;
-}
-
-void	ft_execution_helper2(t_mini *mini, t_hell *head)
+void	ft_one_builtin_cmd(t_mini *mini, t_hell *head)
 {
 	ft_redirecs(head);
 	mini->last_exit_code = exec_builtin(head, mini);
@@ -40,7 +32,7 @@ void	ft_execution_helper2(t_mini *mini, t_hell *head)
 	mini->last_pid = -1;
 }
 
-void	ft_execution_helper3(t_mini *mini)
+void	ft_exit_code_helper(t_mini *mini)
 {
 	waitpid(mini->last_pid, &mini->last_exit_code, 0);
 	mini->last_exit_code = WEXITSTATUS(mini->last_exit_code);
@@ -58,7 +50,7 @@ int	execution(t_mini *mini)
 	while (head != NULL)
 	{
 		if (!mini->to_exec->next && is_builtin(head) == 1)
-			ft_execution_helper2(mini, head);
+			ft_one_builtin_cmd(mini, head);
 		else if (ft_main_exec(head, mini, fd, &p_fd) != 0)
 			ft_parent(head, fd, &p_fd);
 		ft_close_redirecs(head);
@@ -66,7 +58,7 @@ int	execution(t_mini *mini)
 	}
 	ft_close_in_out(mini);
 	if (mini->last_pid >= 0)
-		ft_execution_helper3(mini);
+		ft_exit_code_helper(mini);
 	ft_waitloop();
 	return (1);
 }

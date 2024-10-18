@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/03 11:55:22 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/18 12:43:12 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/18 13:06:33 by diwang        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,9 +216,8 @@ int			ft_pid(pid_t pid);
 
 //Execution2
 void		ft_parent(t_hell *head, int fd[2], int *prev_fd);
-void		ft_execution_helper(t_mini *mini, t_hell *head);
-void		ft_execution_helper2(t_mini *mini, t_hell *head);
-void		ft_execution_helper3(t_mini *mini);
+void		ft_one_builtin_cmd(t_mini *mini, t_hell *head);
+void		ft_exit_code_helper(t_mini *mini);
 int			execution(t_mini *mini);
 
 //Execution3
