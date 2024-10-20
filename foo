@@ -1,6 +1,0 @@
-#!/bin/bash
-make
-cd tester
-./tester
-cd ..
-
