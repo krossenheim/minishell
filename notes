@@ -11,12 +11,5 @@ NOTES:
    maybe the child processes also dont have the signal and thats why they are not quitting?
 
 2 -When doing "cat < not_existing_file",currently our cat waits for input instead of not running. 
-   I've put a flag called 'cancel' on "t_hell" so you could do something like
-		->
-		->	if (head->cancel == true)
-		->		{
-		->				head = head->next;
-		->				continue ;
-		->		}
-		->
-     in the execution loop.
+   I've put a flag called 'cancel' on "t_hell" and it will be set to "true" if there was an issue with the infile, 
+   so its available for you to handle this case.
