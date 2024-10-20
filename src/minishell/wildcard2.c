@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/19 14:51:08 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/20 14:38:35 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/20 14:43:51 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	split_len(char **s)
 	return (l);
 }
 
-static void link_tails(t_tkn_dlist *to_insert, t_tkn_dlist *to_replace_nxt)
+static void	link_tails(t_tkn_dlist *to_insert, t_tkn_dlist *to_replace_nxt)
 {
 	while (to_insert && to_insert->next != NULL)
 	{
@@ -65,7 +65,7 @@ bool	replace_and_insert(t_tkn_dlist *to_replace, char **replaced)
 	t_tkn_dlist	*to_insert;
 	int			lstsize;
 	t_tkn_dlist	*to_replace_nxt;
-	
+
 	if (!to_replace || !replaced)
 		return (false);
 	lstsize = split_len(replaced);

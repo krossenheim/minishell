@@ -4,3 +4,7 @@
 // minishell in a minishell and CTRL C
 // echoa | cat -- executing cat
 // script runs?, also, it runs a builting when ./builtin, instead of , trying to execute the file biulting in tihs directory
+
+NOTES:
+1 When doing "sleep 5 | sleep 1", we cant leave usign ctrl-d or ctrl-c because the signals are not reverted back to our 'default' while waiting on child processes
+2 When doing "cat < not_existing_file", cat waits for input instead of not running. To signal this t_hell should not be executed I've set path to NULL.
