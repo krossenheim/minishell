@@ -14,7 +14,6 @@ SOURCES_FLS	=	main.c \
 				minishell/utils1.c \
 				minishell/utils2.c \
 				minishell/signal_handlers.c \
-				minishell/disable_echo_ctrl.c \
 				minishell/builtin_programs.c \
 				minishell/builtin_programs1.c \
 				minishell/builtin_programs2.c \
@@ -50,10 +49,10 @@ SOURCES = $(addprefix $(SOURCES_DIR), $(SOURCES_FLS))
 OBJS	=	$(SOURCES:%.c=%.o)
 NAME = minishell
 
-CFLAGS	=	 -Wall	-Wextra	-Werror -g -I ./includes/ 
+CFLAGS	=	 -Wall	-Wextra	-Werror -g0 -I ./includes/ -lreadline -D_DEFAULT_SOURCE -std=c99
 
 $(NAME): $(OBJS)
-	cc $(OBJS) -D_DEFAULT_SOURCE -std=c99 -lreadline -o $(NAME)
+	clang $(OBJS) $(CFLAGS) -o $(NAME)
 
 all:	$(NAME)
 	

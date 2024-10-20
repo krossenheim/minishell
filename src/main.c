@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/03 11:57:48 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/15 14:50:09 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/20 13:33:08 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ int	main(int argc, char **argv, char **envp)
 		return (3);
 	}
 	bind_signals();
-	disable_echo_ctrl_chrcts();
 	return_value = main_loop(&mini);
 	ft_clean_exit(&mini);
 	return (return_value);
