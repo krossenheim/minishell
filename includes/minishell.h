@@ -6,14 +6,13 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/03 11:55:22 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/18 13:08:49 by diwang        ########   odam.nl         */
+/*   Updated: 2024/10/20 12:45:21 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-# define ECHOCTL 0001000
-# define PROMPTLINE "\e[1;92mMinishell:\e[0m"
+# define PROMPTLINE "Minishell:"
 # define TEMP_HEREDOC ".temp_heredoc"
 # include <stdio.h>
 # include <stdlib.h>
