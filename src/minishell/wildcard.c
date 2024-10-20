@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/19 14:51:08 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/09 23:24:40 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/20 14:39:55 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,6 @@ static void	autoc_tokens(DIR *folder, t_tkn_dlist *head)
 				return ;
 			}
 		}
-		else
-			printf("Nothing to replace\n");
 		free_split(replaced);
 		head = head->next;
 	}

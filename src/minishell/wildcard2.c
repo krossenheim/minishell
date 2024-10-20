@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/19 14:51:08 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/03 23:00:08 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/20 14:38:35 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,27 @@ static int	split_len(char **s)
 	return (l);
 }
 
+static void link_tails(t_tkn_dlist *to_insert, t_tkn_dlist *to_replace_nxt)
+{
+	while (to_insert && to_insert->next != NULL)
+	{
+		to_insert = to_insert->next;
+	}
+	to_insert->next = to_replace_nxt;
+	if (to_insert->next)
+		to_insert->next->prev = to_insert;
+}
+
 bool	replace_and_insert(t_tkn_dlist *to_replace, char **replaced)
 {
 	t_tkn_dlist	*to_insert;
 	int			lstsize;
-
+	t_tkn_dlist	*to_replace_nxt;
+	
 	if (!to_replace || !replaced)
 		return (false);
 	lstsize = split_len(replaced);
+	to_replace_nxt = to_replace->next;
 	to_insert = empty_dlist(lstsize - 1);
 	to_replace->next = to_insert;
 	if (!wildcard2_replace(to_replace, replaced))
@@ -64,5 +77,6 @@ bool	replace_and_insert(t_tkn_dlist *to_replace, char **replaced)
 	if (lstsize == 1)
 		return (true);
 	wildcard2_insert(to_replace, replaced, to_insert, lstsize);
+	link_tails(to_insert, to_replace_nxt);
 	return (true);
 }
