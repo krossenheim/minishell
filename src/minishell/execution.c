@@ -24,7 +24,7 @@ bool	is_regular_file(char *path, bool verbose_nofile)
 		{
 			write(2, "minishell: ", 12);
 			write(2, path, ft_strlen(path));
-			write(2, ": No such file or diretory\n", 28);
+			write(2, ": No such file or directory\n", 29);
 		}
 		return (false);
 	}

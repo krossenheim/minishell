@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/08 21:49:03 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/20 12:48:49 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/20 13:16:48 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@ t_tkn_dlist	*get_filename(t_tkn_dlist *current)
 	return (tmp);
 }
 
+static bool return_true_and_set_path_to_false(t_hell *dest)
+{
+	dest->path = NULL;
+	return (true);
+}
+
 bool	set_infile(t_hell *dest, t_tkn_dlist *current)
 {
 	int			file;
@@ -37,12 +43,12 @@ bool	set_infile(t_hell *dest, t_tkn_dlist *current)
 
 	ns = get_sep_r(current);
 	file = -2;
-	if (!ns || *ns->contents != '<')
+	if (!ns || *ns->contents != '<' || ns->next->is_sep)
 		return (true);
 	if (ns->next && *ns->contents == '<' && ft_strlen(ns->contents) == 1)
 	{
-		if (!is_regular_file(ns->next->contents, true))
-			return (true);
+		if (!is_regular_file(get_filename(current)->contents, true))
+			return (return_true_and_set_path_to_false(dest));
 		maybe_close(dest->outfile);
 		file = open(get_filename(current)->contents, O_RDONLY, 0644);
 	}
@@ -71,12 +77,12 @@ bool	set_outfile(t_hell *dest, t_tkn_dlist *current)
 	if (ft_strncmp(ns->contents, ">>", 2) == 0 && ft_strlen(ns->contents) == 2)
 	{
 		maybe_close(dest->outfile);
-		file = open(ns->next->contents, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		file = open(get_filename(ns)->contents, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	}
 	else if (*ns->contents == '>' && ft_strlen(ns->contents) == 1)
 	{
 		maybe_close(dest->outfile);
-		file = open(ns->next->contents, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		file = open(get_filename(ns)->contents, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	}
 	if (file > 0)
 		dest->outfile = file;
