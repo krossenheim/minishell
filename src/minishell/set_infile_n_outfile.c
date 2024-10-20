@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/08 21:49:03 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/20 13:24:40 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/20 15:19:54 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ static char	*get_filename(t_tkn_dlist *current)
 	return (tmp->contents);
 }
 
-static bool	return_true_and_set_path_to_false(t_hell *dest)
+static bool	return_true_and_set_cancel_true(t_hell *dest)
 {
-	dest->path = NULL;
+	dest->cancel = true;
 	return (true);
 }
 
@@ -48,7 +48,7 @@ bool	set_infile(t_hell *dest, t_tkn_dlist *current)
 	if (ns->next && *ns->contents == '<' && ft_strlen(ns->contents) == 1)
 	{
 		if (!is_regular_file(get_filename(current), true))
-			return (return_true_and_set_path_to_false(dest));
+			return (return_true_and_set_cancel_true(dest));
 		maybe_close(dest->outfile);
 		file = open(get_filename(current), O_RDONLY, 0644);
 	}
