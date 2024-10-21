@@ -52,7 +52,7 @@ NAME = minishell
 CFLAGS	=	 -Wall	-Wextra	-Werror -g0 -I ./includes/ -lreadline -D_DEFAULT_SOURCE -std=c99
 
 $(NAME): $(OBJS)
-	clang $(OBJS) $(CFLAGS) -o $(NAME)
+	cc $(OBJS) $(CFLAGS) -o $(NAME)
 
 all:	$(NAME)
 	
