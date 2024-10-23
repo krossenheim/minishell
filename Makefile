@@ -55,7 +55,7 @@ CFLAGS	= -Wall -Wextra	-Werror -g0 -I ./includes/ -D_DEFAULT_SOURCE -std=c99
 	cc $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
-	cc $(OBJS) $(CFLAGS) -l readline -o $(NAME)
+	cc $(OBJS) $(CFLAGS) -l readline  -o $(NAME)
 
 all:	$(NAME)
 	

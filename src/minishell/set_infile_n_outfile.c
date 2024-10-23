@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/08 21:49:03 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/20 15:19:54 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/23 13:29:12 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,12 @@ static char	*get_filename(t_tkn_dlist *current)
 	if (!current)
 		return (NULL);
 	tmp = get_sep_r(current);
+	if (!tmp && current->is_sep && current->next)
+		return (current->next->contents);
 	while (tmp && tmp->next && tmp->is_sep)
 		tmp = tmp->next;
+	if (!tmp)
+		return (NULL);
 	return (tmp->contents);
 }
 
