@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/03 11:57:48 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/20 13:33:08 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/23 16:12:51 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ int	main_loop(t_mini *mini)
 {
 	while (1)
 	{
+		bind_signals();
 		mini->spaced_input = space_readline(PROMPTLINE);
+		default_binds();
 		if (mini->spaced_input == NULL)
 			break ;
 		if ((*mini->spaced_input == '\0')
@@ -70,7 +72,6 @@ int	main(int argc, char **argv, char **envp)
 		printf("Failure initializing t_mini\n");
 		return (3);
 	}
-	bind_signals();
 	return_value = main_loop(&mini);
 	ft_clean_exit(&mini);
 	return (return_value);

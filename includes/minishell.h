@@ -6,7 +6,7 @@
 /*   By: jose-lop <jose-lop@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/03 11:55:22 by jose-lop      #+#    #+#                 */
-/*   Updated: 2024/10/20 12:45:21 by jose-lop      ########   odam.nl         */
+/*   Updated: 2024/10/23 16:13:04 by jose-lop      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,5 +259,6 @@ bool		set_outfile(t_hell *dest, t_tkn_dlist *current);
 
 // TBD
 bool		is_regular_file(char *path, bool verbose_nofile);
+void		default_binds(void);
 
 #endif

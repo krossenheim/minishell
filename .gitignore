@@ -9,4 +9,4 @@ temp_heredoc
 !/src*.c
 tester
 minishell
-.vscode
+0
