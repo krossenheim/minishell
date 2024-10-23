@@ -49,13 +49,13 @@ SOURCES = $(addprefix $(SOURCES_DIR), $(SOURCES_FLS))
 OBJS	=	$(SOURCES:%.c=%.o)
 NAME = minishell
 
-CFLAGS	= -Wall -Wextra	-Werror -g0 -I ./includes/ -l readline -D_DEFAULT_SOURCE -std=c99
+CFLAGS	= -Wall -Wextra	-Werror -g0 -I ./includes/ -D_DEFAULT_SOURCE -std=c99
 
 %.o:%.c
 	cc $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
-	cc $(OBJS) $(CFLAGS) -o $(NAME)
+	cc $(OBJS) $(CFLAGS) -l readline -o $(NAME)
 
 all:	$(NAME)
 	
